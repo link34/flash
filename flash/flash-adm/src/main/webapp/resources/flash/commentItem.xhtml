@@ -1,0 +1,34 @@
+<div xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+<composite:interface>
+	<composite:attribute name="cmt" type="com.solt.flash.entity.Comment" required="true" />
+	<composite:attribute name="deleteAction" 
+		method-signature="void method(com.solt.flash.entity.Comment)" required="true" />
+	<composite:attribute name="deleteResultRedrer" type="java.lang.String" required="true" />
+	
+</composite:interface>
+<composite:implementation>
+	<div class="card">
+		<div class="card-content">
+			<h:form>
+				<h:commandLink styleClass="btn-floating right red MarRight10" 
+					actionListener="#{cc.attrs.deleteAction}">
+					<i class="material-icons">delete</i>
+					<f:ajax execute="@this" render="#{cc.attrs.deleteResultRedrer}"></f:ajax>
+				</h:commandLink>
+			</h:form>
+			<h:outputText value="#{cc.attrs.cmt.security.creation}" styleClass="grey-text Fs10" >
+				<f:converter binding="#{commonDateTimeConverter}" />
+			</h:outputText>
+			<p>
+				<h:outputText value="#{cc.attrs.cmt.comment}" />
+			</p>
+			<h:outputText value="#{cc.attrs.cmt.user.name}" styleClass="left Fs10 grey-text" /><br/>
+		</div>
+	</div>
+	
+</composite:implementation>
+</div>

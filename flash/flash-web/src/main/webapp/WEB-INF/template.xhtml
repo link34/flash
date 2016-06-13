@@ -1,0 +1,292 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title><ui:insert name="title"></ui:insert> | Flash</title>
+	<h:outputStylesheet name="materialize.min.css" library="css" />
+	<h:outputStylesheet name="material-icon.css" library="css" />
+	<h:outputStylesheet name="common.css" library="css" />
+	
+	<link rel="stylesheet" href="../resources/css/materialize.min.css" />
+	<link rel="stylesheet" href="../resources/css/material-icon.css" />
+	<link rel="stylesheet" href="../resources/css/common.css" />
+</h:head> 
+<body> 
+	
+	<h:form>
+	<ul id="dropdown1" class="dropdown-content conf-menu" >
+		<h:panelGroup rendered="#{empty loginUser}">
+			<li>
+				<a class="modal-trigger" href="#singUpModal">Sign Up</a>
+			</li>
+			<li>
+				<a class="modal-trigger" href="#singInModal">Sign In</a>
+			</li>
+		</h:panelGroup>
+		
+		<h:panelGroup rendered="#{not empty loginUser}">
+			
+			<li>
+				<h:link value="Profile" outcome="/user/profile" />
+			</li>
+			<li>
+				<a class="modal-trigger" href="#changePassModal">Change Password</a>
+			</li>
+			<li>
+				<h:commandLink action="#{loginBean.logout()}" value="Sign Out" />
+			</li>
+		</h:panelGroup>
+	</ul>
+
+	<ul id="dropdown2" class="dropdown-content conf-menu" >
+		<h:panelGroup rendered="#{empty loginUser}">
+			<li>
+				<a class="modal-trigger" href="#singUpModal">Sign Up</a>
+			</li>
+			<li>
+				<a class="modal-trigger" href="#singInModal">Sign In</a>
+			</li>
+		</h:panelGroup>
+		
+		<h:panelGroup rendered="#{not empty loginUser}">
+			
+			<li>
+				<h:link value="Profile" outcome="/user/profile" />
+			</li>
+			<li>
+				<a class="modal-trigger" href="#changePassModal">Change Password</a>
+			</li>
+			<li>
+				<h:commandLink action="#{loginBean.logout()}" value="Sign Out" />
+			</li>
+		</h:panelGroup>
+	</ul>
+
+	</h:form>
+	
+	<nav class="cyan darken-3">
+		<div class="nav-wrapper container">
+			<h:link value="Flash" outcome="/home" styleClass="brand-logo" />
+			<a href="#" class="button-collapse" data-activates="mobile-menu">
+				<i class="material-icons">menu</i>
+			</a>
+			<ul class="right hide-on-med-and-down">
+				<h:panelGroup rendered="#{not empty loginUser}">
+				<li>
+					<h:link value="My Memories" outcome="/user/blogs"/>
+				</li>
+				<li>
+					<h:link value="My Foot Prints" outcome="/user/comments"/>
+				</li>
+				<li>
+					<h:link value="New Memory" outcome="/user/addBlog"/>
+				</li>
+				</h:panelGroup>
+				<li>
+					<a href="#!" class="dropdown-button" data-activates="dropdown1" >Secret Parts<i class="material-icons right">settings</i></a>
+				</li>
+			</ul>
+			<ul class="side-nav" id="mobile-menu">
+				<h:panelGroup rendered="#{not empty loginUser}">
+				<li>
+					<h:link value="My Memories" outcome="/user/blogs"/>
+				</li>
+				<li>
+					<h:link value="My Foot Prints" outcome="/user/comments"/>
+				</li>
+				<li>
+					<h:link value="New Memory" outcome="/user/addBlog"/>
+				</li>
+				</h:panelGroup>
+				<li>
+					<a href="#!" class="dropdown-button" data-activates="dropdown2" >Secret Parts<i class="material-icons right">settings</i></a>
+				</li>
+			</ul>
+
+		</div>
+	</nav>
+
+	<div class="container MarTop10">
+
+		<h:messages id="message" showDetail="true" showSummary="false" styleClass="card-panel purple-text yellow lighten-4" />
+		
+		<div class="row">
+			<div class="col l3 hide-on-med-and-down">
+				<ul class="collection with-header">
+					<li class="collection-header cyan accent-4 white-text"><h4>Category</h4></li>
+					<ui:repeat var="c" value="#{allCategory}">
+						<li class="collection-item">
+							<div>
+							#{c.category}
+							<h:link styleClass="secondary-content cyan-text darken-3" outcome="/home">
+								<i class="material-icons">send</i>
+								<f:param name="cat" value="#{c.id}"></f:param>
+							</h:link>
+							</div>
+						</li>				
+					</ui:repeat>
+				</ul>
+			</div>
+
+			<div class="col l6 m12 s12">
+				<ui:insert name="content">
+				</ui:insert>
+			</div>
+
+			<div class="col l3 m12 s12">
+				<!-- Blogs  -->
+				<div class="card cyan accent-1">
+					<div class="card-content">
+						<i class="material-icons Fs36">description</i>
+						<h:outputText value="#{blogCount}" styleClass="Fs24 right" /><br/>
+						<h:outputText value="Publish Counts" styleClass="Fs10 right" />
+					</div>
+					<div class="card-action white" >
+						<h:link value="Show All" outcome="/admin/blogs" />
+					</div>
+				</div>
+
+				<!-- Comments  -->
+				<div class="card cyan accent-2">
+					<div class="card-content">
+						<i class="material-icons Fs36">chat</i>
+						<h:outputText value="#{commentCount}" styleClass="Fs24 right" /><br/>
+						<h:outputText value="Comment Counts" styleClass="Fs10 right" />
+					</div>
+					<div class="card-action white" >
+						<h:link value="Show All" outcome="/admin/comments" />
+					</div>
+				</div>
+				
+				<!-- Users  -->
+				<div class="card cyan accent-3">
+					<div class="card-content">
+						<i class="material-icons Fs36">people</i>
+						<h:outputText value="#{userCont}" styleClass="Fs24 right" /><br/>
+						<h:outputText value="Member Counts" styleClass="Fs10 right" />
+					</div>
+					<div class="card-action white" >
+						<h:link value="Show All" outcome="/admin/users" />
+					</div>
+				</div>
+			</div>
+
+		</div>
+	
+	</div>
+	
+	<footer class="footer-copyright container center-align">
+		Powered by Java Developer Class
+	</footer>
+	
+	<!-- Sign In Form -->
+	<h:form>
+		<div class="modal" id="singInModal">
+			<div class="modal-content">
+				<h4>Sign In</h4>
+				
+				<div class="input-field">
+					<h:inputText value="#{loginBean.loginId}" 
+						required="true" requiredMessage="Please enter Login ID." />
+					<h:outputLabel value="Login ID" />
+				</div>
+
+				<div class="input-field">
+					<h:inputSecret value="#{loginBean.password}"
+						required="true" requiredMessage="Please enter password." />
+					<h:outputLabel value="Password" />
+				</div>
+				
+			</div>
+			
+			<div class="modal-footer">
+				<h:commandButton action="#{loginBean.login()}" value="SIGN IN" styleClass="btn-flat" />
+				<a href="#!" class="btn-flat modal-action modal-close" >CLOSE</a>
+			</div>
+		</div>
+	</h:form>
+	
+	<!-- Sign Up Form -->
+	<h:form>
+		<div class="modal" id="singUpModal">
+			<div class="modal-content">
+				<h4>Sign Up</h4>
+
+				<div class="input-field">
+					<h:inputText value="#{loginBean.name}" 
+					 	required="true" requiredMessage="You need to enter Name!"/>
+					<h:outputLabel value="Name" />
+				</div>
+
+				<div class="input-field">
+					<h:inputText value="#{loginBean.loginId}" 
+						required="true" requiredMessage="You must enter Login Id!"/>
+					<h:outputLabel value="Login ID" />
+				</div>
+
+				<div class="input-field">
+					<h:inputSecret value="#{loginBean.password}" 
+						required="true" requiredMessage="You must enter password!"/>
+					<h:outputLabel value="Password" />
+				</div>
+
+			</div>
+
+			<div class="modal-footer">
+				<h:commandButton action="#{loginBean.signUp()}" value="SIGN UP" styleClass="btn-flat" />
+				<a href="#!" class="btn-flat modal-action modal-close" >CLOSE</a>
+			</div>
+		</div>
+	</h:form>
+		
+	<!-- Change Pass Form -->
+	<h:form id="changePassForm">
+		<div class="modal" id="changePassModal">
+			<div class="modal-content">
+				<h4>Change Password</h4>
+
+				<div class="input-field">
+					<h:inputSecret value="#{userBean.oldPass}" />
+					<h:outputLabel value="Old Password" />
+				</div>
+
+				<div class="input-field">
+					<h:inputSecret value="#{userBean.newPass}" />
+					<h:outputLabel value="New Password" />
+				</div>
+
+				<div class="input-field">
+					<h:inputSecret value="#{userBean.confPass}" />
+					<h:outputLabel value="Confirm Password" />
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<h:commandButton action="#{userBean.changePass()}" value="CHANGE PASSWORD" styleClass="btn-flat modal-action modal-close" />
+				<a href="#!" class="btn-flat modal-action modal-close" >CLOSE</a>
+			</div>
+		</div>
+	</h:form>
+	
+	<h:outputScript name="jquery-2.2.2.min.js" library="js"></h:outputScript>
+	<h:outputScript name="materialize.min.js" library="js"></h:outputScript>
+	
+	<script>
+		$(document).ready(function(){
+			$('.dropdown-button').dropdown();
+			$('.modal-trigger').leanModal();
+			$('select').material_select();
+			$('.button-collapse').sideNav();
+
+			$('.datepicker').pickadate({
+				selectMonths: true, // Creates a dropdown to control month
+				selectYears: 50 // Creates a dropdown of 15 years to control year
+			});
+			        
+		});
+	</script>
+</body> 
+</html>

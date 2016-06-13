@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:flash="http://java.sun.com/jsf/composite/flash">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="title">
+			Memory
+		</ui:define>
+		
+		<ui:define name="content">
+			
+			<!-- Blog -->
+			<h:panelGroup rendered="#{not empty blogBean.blog}">
+			<div class="card">
+				<div class="card-content">
+				
+					<div class="row">
+					
+						<div class="col l3 center-align">
+							<h:outputText value="#{blogBean.blog.comments.size()}" styleClass="Fs60" id="commentCount" />
+							<br/>
+							<h:outputText value="#{blogBean.blog.category.category}" /><br/>
+							<h:link value="#{blogBean.blog.user.name}" styleClass="Fs10" outcome="/home">
+								<f:param name="user" value="#{blogBean.blog.user.loginId}"></f:param>
+							</h:link>
+						</div>
+						
+						<div class="col l9">
+							<h:outputText value="#{blogBean.blog.title}" styleClass="card-title MarRight30" />
+							<h:link styleClass="btn-floating right blue" outcome="/user/editBlog"
+								rendered="#{loginUser.loginId eq blogBean.blog.user.loginId}">
+								<i class="material-icons">edit</i>
+								<f:param name="id" value="#{blogBean.blog.id}"></f:param>
+							</h:link>
+							<br/>
+							<h:outputText value="#{blogBean.blog.security.creation}" styleClass="grey-text Fs10" >
+								<f:converter binding="#{commonDateTimeConverter}"></f:converter>
+							</h:outputText>
+
+							<p>
+								<h:outputText value="#{blogBean.blog.body}" />
+							</p>
+							<div class="MarTop10">
+								<ui:repeat var="tag" value="#{blogBean.blog.tagList}">
+									<h:outputText value="#{tag}" styleClass="chip MarRight10 Fs10" />
+								</ui:repeat>
+							</div>
+		
+						
+						</div>
+					</div>
+
+				</div>
+			</div>
+			</h:panelGroup>
+			
+			<!-- Comments -->
+			<h:panelGroup id="commentList" rendered="#{not empty blogBean.blog.commentList}">
+				<h4 class="grey-text">Comments</h4>
+				<ui:repeat var="cmt" value="#{blogBean.blog.commentList}">
+					<flash:commentItem cmt="#{cmt}" 
+						editActionListener="#{blogBean.editComment(cmt)}"
+						deleteAction="#{blogBean.deleteComment(cmt)}" />
+				</ui:repeat>
+			</h:panelGroup>
+
+			<h:form id="editCommentForm">
+			
+				<div class="modal" id="editComment">
+					<div class="modal-content">
+						<h5>Edit Comment</h5>
+			
+						<div class="input-field" id="commentData">
+							<h:inputTextarea value="#{blogBean.selectedComment.comment}" styleClass="materialize-textarea" id="comment"/>
+						</div>	
+						<h:commandLink styleClass="btn teal" action="#{blogBean.saveComment()}" value="Save Comment" />
+			
+					</div>
+				</div>
+
+				<script>
+					#{blogBean.modalScript}
+				</script>
+
+			</h:form>
+	
+			<!-- New Comment -->
+			<h:form rendered="#{not empty loginUser}">
+			<div class="card">
+				<div class="card-content">
+					<span class="card-title">Add New Comment</span>
+					<div class="input-field">
+						<h:inputTextarea value="#{blogBean.newComment}" styleClass="materialize-textarea" id="comment"/>
+						<h:outputLabel value="Comment" for="comment" />
+					</div>	
+					<h:commandLink styleClass="btn teal" action="#{blogBean.addComment()}" value="Add Comment" />
+				</div>
+			</div>
+			</h:form>			
+		</ui:define>
+	</ui:composition>
+</html>

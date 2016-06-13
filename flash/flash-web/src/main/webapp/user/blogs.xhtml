@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:flash="http://java.sun.com/jsf/composite/flash">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="title">
+			My Memories
+		</ui:define>
+		
+		<ui:define name="content">
+			<ui:repeat var="blog" value="#{userBlogsBean.blogs}">
+				<flash:blogItem blog="#{blog}" isMyBlogs="true" />
+			</ui:repeat>
+		</ui:define>
+	</ui:composition>
+</html>

@@ -1,0 +1,62 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.solt</groupId>
+		<artifactId>flash</artifactId>
+		<version>1.0</version>
+	</parent>
+	<artifactId>flash-ear</artifactId>
+	<packaging>ear</packaging>
+	<dependencies>
+		<dependency>
+			<groupId>com.solt</groupId>
+			<artifactId>flash-ejb</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>com.solt</groupId>
+			<artifactId>flash-web</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>com.solt</groupId>
+			<artifactId>flash-adm</artifactId>
+			<type>war</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.10.1</version>
+				<configuration>
+					<!-- http://maven.apache.org/plugins/maven-ear-plugin/ -->
+					<version>7</version>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<fileNameMapping>no-version</fileNameMapping>
+					
+					<modules>
+						<ejbModule>
+							<groupId>com.solt</groupId>
+							<artifactId>flash-ejb</artifactId>
+						</ejbModule>
+						<webModule>
+							<groupId>com.solt</groupId>
+							<artifactId>flash-web</artifactId>
+							<contextRoot>/flash</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>com.solt</groupId>
+							<artifactId>flash-adm</artifactId>
+							<contextRoot>/flash-adm</contextRoot>
+						</webModule>
+					</modules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

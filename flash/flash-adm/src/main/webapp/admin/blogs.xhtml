@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:flash="http://java.sun.com/jsf/composite/flash">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="title">
+			Memories
+		</ui:define>
+		
+		<ui:define name="content">
+			<!-- Search box -->
+			<div class="card">
+				<h:form>
+					<div class="row card-content">
+						<div class="col s9 input-field">
+							<h:inputText value="#{blogBean.keyword}" />
+							<h:outputLabel value="Keyword" />
+						</div>
+						<div class="col s3">
+							<h:commandLink styleClass="btn-floating MarTop20" actionListener="#{blogBean.search()}">
+								<i class="material-icons">search</i>
+							</h:commandLink>
+						</div>
+					</div>
+				</h:form>
+			</div>
+			
+			<!-- Search Result  -->
+			<h:panelGroup id="blogList">
+				<ui:repeat var="blog" value="#{blogBean.blogList}">
+					<flash:blogItem blog="#{blog}" deleteActionListener="#{blogBean.delete(blog)}" 
+						deleteResultRenderer="blogList" detailsOutcome="/admin/blog" />
+				</ui:repeat>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</html>

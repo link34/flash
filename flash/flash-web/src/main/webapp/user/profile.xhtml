@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="title">
+			Profile
+		</ui:define>
+		
+		<ui:define name="content">
+			<div class="card">
+				<div class="card-content">
+					<h:outputText value="#{userBean.user.name} (#{userBean.user.loginId})" styleClass="card-title" />
+					
+					<h:link styleClass="right btn-floating" outcome="/user/profileEdit">
+						<i class="material-icons">edit</i>								
+					</h:link>
+											
+					<div class="divider" />
+					
+					<div class="row MarTop10">
+						<div class="col l6 center-align">
+							<h:graphicImage name="user.png" library="img" styleClass="card-image responsive-img" />
+							<h:outputText value="#{userBean.user.status}" /><br/>
+							<h:outputText value="#{userBean.user.security.creation}" converter="#{commonDateTimeConverter}" />
+							<h:outputText value="#{userBean.user.email}" styleClass="grey-text"/>
+						</div>
+						<div class="col l6">
+							
+							<!-- Blogs -->
+							<div class="card blue-grey darken-2 white-text">
+								<div class="card-content">
+									<i class="material-icons Fs36">description</i>
+									<h:outputText value="#{userBean.user.blogsCount}" styleClass="Fs24 right" /><br/>
+									<h:outputText value="Publish Counts" styleClass="Fs10 right" />
+								</div>
+								<div class="card-action white" >
+									<h:link value="Show All" outcome="/user/blogs" styleClass="blue-grey-text text-darken-3">
+										<f:param name="user" value="#{userBean.user.loginId}"></f:param>
+									</h:link>
+								</div>
+							</div>
+
+							<!-- Comments  -->
+							<div class="card pink darken-2 white-text">
+								<div class="card-content">
+									<i class="material-icons Fs36">chat</i>
+									<h:outputText value="#{userBean.user.commentCount}" styleClass="Fs24 right" /><br/>
+									<h:outputText value="Comment Counts" styleClass="Fs10 right" />
+								</div>
+								<div class="card-action white" >
+									<h:link value="Show All" outcome="/user/comments" styleClass="pink-text text-darken-3" />
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+				</div>					
+			</div>	
+		</ui:define>
+	</ui:composition>
+</html>

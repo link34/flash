@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:flash="http://java.sun.com/jsf/composite/flash">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="title">
+			My Foot Prints
+		</ui:define>
+		
+		<ui:define name="content">
+			<ui:repeat var="cmt" value="#{userCommentsBean.comments}">
+				<flash:commentItem cmt="#{cmt}" isMyComments="true"
+					deleteAction="#{userCommentsBean.delete(cmt)}"
+					editActionListener="#{userCommentsBean.edit(cmt)}"  />
+			</ui:repeat>
+
+			<h:form id="editCommentForm">
+			
+				<div class="modal" id="editComment">
+					<div class="modal-content">
+						<h5>Edit Comment</h5>
+			
+						<div class="input-field" id="commentData">
+							<h:inputTextarea value="#{userCommentsBean.selectedComment.comment}" styleClass="materialize-textarea" id="comment"/>
+						</div>	
+						<h:commandLink styleClass="btn teal" action="#{userCommentsBean.save()}" value="Save Comment" />
+			
+					</div>
+				</div>
+
+				<script>
+					#{userCommentsBean.modalScript}
+				</script>
+
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</html>

@@ -1,0 +1,54 @@
+<div xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+<composite:interface>
+	<composite:attribute name="blog" type="com.solt.flash.entity.Blog" required="true" />
+	<composite:attribute name="detailsOutcome" type="java.lang.String" required="true" />
+	<composite:attribute name="deleteActionListener" method-signature="void method(com.solt.flash.entity.Blog)" required="true" />
+	<composite:attribute name="deleteResultRenderer" type="java.lang.String" required="true" />
+</composite:interface>
+<composite:implementation>
+	<h:form>
+	<div class="card">
+		<div class="card-content">
+			<div class="row">
+				<div class="col l3 m3 center">
+					<h:outputText value="#{cc.attrs.blog.comments.size()}" styleClass="Fs60" /><br/>
+					<h:outputText value="#{cc.attrs.blog.category.category}" /><br/>
+					<h:outputText value="#{cc.attrs.blog.status}" styleClass="Fs10 grey-text" rendered="#{cc.attrs.isMyBlogs}" />
+					<h:link value="#{cc.attrs.blog.user.name}" outcome="/home" styleClass="Fs10 grey-text" 
+						rendered="#{not cc.attrs.isMyBlogs}">
+						<f:param name="user" value="#{cc.attrs.blog.user.loginId}"></f:param>
+					</h:link>
+				</div>
+				<div class="col l9 m9">
+					<h:commandLink actionListener="#{cc.attrs.deleteActionListener}" 
+						styleClass="btn-floating right">
+						<i class="material-icons">delete</i>
+						<f:ajax execute="@this" render="#{cc.attrs.deleteResultRenderer}"></f:ajax>
+					</h:commandLink>
+					<h5><h:outputText value="#{cc.attrs.blog.title}" /> </h5>
+					<h:outputText value="#{cc.attrs.blog.security.creation}" styleClass="Fs10 grey-text" >
+						<f:converter binding="#{commonDateTimeConverter}" />
+					</h:outputText>
+					<p>
+					<h:outputText value="#{cc.attrs.blog.body}" />
+					</p>
+					
+					<div class="MarTop10 MarBot10">
+						<ui:repeat var="tag" value="#{cc.attrs.blog.tagList}">
+							<h:outputText value="#{tag}" styleClass="chip MarRight10 Fs9" />
+						</ui:repeat>
+					</div>
+					<h:link styleClass="deep-purple-text Fs10" value="Read More" outcome="#{cc.attrs.detailsOutcome}">
+						<f:param name="id" value="#{cc.attrs.blog.id}"></f:param>
+					</h:link>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</h:form>
+</composite:implementation>
+</div>

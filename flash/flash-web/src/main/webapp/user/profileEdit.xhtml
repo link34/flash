@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/passthrough"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="title">
+			Edit Profile
+		</ui:define>
+		
+		<ui:define name="content">
+			<h:form>
+			<div class="card">
+				<div class="card-content">
+					<span class="card-title">Edit User Profile</span>
+					
+					<div class="divider" />
+					
+					
+					<div class="row">
+						<div class="col l4">
+							<h:graphicImage name="user.png" library="img" styleClass="MarTop20 responsive-img card-image" />
+						</div>
+						<div class="col l8">
+
+							<div class="input-field">
+								<h:inputText value="#{userBean.user.name}" />
+								<h:outputLabel value="Name" />
+							</div>
+							
+							<div class="row">
+								<div class="col l4 input-field">
+									<h:selectOneMenu value="#{userBean.user.gender}">
+										<f:selectItems value="#{genders}" var="g" itemLabel="#{g}" itemValue="#{g}"></f:selectItems>
+									</h:selectOneMenu>
+									<h:outputLabel value="Gender" />
+								</div>
+								<div class="col l8 input-field">
+									<h:inputText value="#{userBean.user.dob}" styleClass="datepicker" p:type="date">
+									</h:inputText>
+									<h:outputLabel value="Date of Birth" />
+								</div>
+							</div>
+							
+							<div class="input-field">
+								<h:inputText value="#{userBean.user.email}" />
+								<h:outputLabel value="Email" />
+							</div>
+		
+							<div class="input-field">
+								<h:inputTextarea value="#{userBean.user.introduction}" styleClass="materialize-textarea" />
+								<h:outputLabel value="Greeting" />
+							</div>
+
+						</div>
+					</div>
+					
+
+				</div>
+			</div>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

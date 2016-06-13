@@ -1,0 +1,56 @@
+<div xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:composite="http://java.sun.com/jsf/composite">
+<composite:interface>
+	<composite:attribute name="title" type="java.lang.String" required="true" />
+	<composite:attribute name="blog" type="com.solt.flash.entity.Blog" required="true" />
+	<composite:attribute name="tags" type="java.lang.String" required="true" />
+	<composite:attribute name="publish" type="boolean" required="true" />
+	<composite:attribute name="actionName" type="java.lang.String" required="true" />
+	<composite:attribute name="saveAction" method-signature="java.lang.String method()" required="true" />
+</composite:interface>
+<composite:implementation>
+	<h:form>
+		<div class="card">
+			<div class="card-content">
+				<h:outputText value="#{cc.attrs.title}" styleClass="card-title" />
+				
+				<div class="input-field">
+					<h:inputText value="#{cc.attrs.blog.title}" />
+					<h:outputLabel value="Title" />
+				</div>	
+				
+				<div class="row">
+					<div class="col l4 m6 s12">
+						<div class="input-field">
+							<h:selectOneMenu value="#{cc.attrs.blog.category}" >
+								<f:converter binding="#{categoryConverter}" />
+								<f:selectItems value="#{allCategory}" var="c" itemLabel="#{c.category}" itemValue="#{c}"/>
+							</h:selectOneMenu>
+							<h:outputLabel value="Category" />
+						</div>
+					</div>
+					<div class="col l8 m6 s12">
+						<div class="input-field">
+							<h:inputText value="#{cc.attrs.tags}" />
+							<h:outputLabel value="Tags" />
+						</div>
+					</div>
+				</div>
+				
+				<div class="input-field">
+					<h:inputTextarea id="body" value="#{cc.attrs.blog.body}" styleClass="materialize-textarea" rows="10" />
+					<h:outputLabel value="Memory" for="body" />
+				</div>	
+				
+				<div>
+					<h:selectBooleanCheckbox id="publish" value="#{cc.attrs.publish}" />
+					<h:outputLabel value="Publish" for="publish" styleClass="MarRight20" />
+					<h:commandLink action="#{cc.attrs.saveAction}" value="#{cc.attrs.actionName}" styleClass="btn MarRight10" />
+				</div>			
+			</div>
+		</div>
+	</h:form>
+</composite:implementation>
+</div>

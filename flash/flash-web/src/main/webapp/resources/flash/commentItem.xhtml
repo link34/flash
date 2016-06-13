@@ -1,0 +1,41 @@
+<div xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+<composite:interface>
+	<composite:attribute name="cmt" type="com.solt.flash.entity.Comment" required="true" />
+	<composite:attribute name="isMyComments" type="boolean" default="false" />
+	<composite:attribute name="deleteAction" 
+		method-signature="void method(com.solt.flash.entity.Comment)" required="true" />
+	<composite:attribute name="editActionListener" 
+		method-signature="void method(com.solt.flash.entity.Comment)" required="true" />
+		
+	
+</composite:interface>
+<composite:implementation>
+	<div class="card">
+		<div class="card-content">
+			<h:form rendered="#{loginUser.loginId eq cmt.user.loginId}">
+				<h:commandLink styleClass="btn-floating right blue" actionListener="#{cc.attrs.editActionListener}">
+					<i class="material-icons">edit</i>
+					<f:ajax execute="@this" render="editCommentForm" />
+				</h:commandLink>
+				<h:commandLink styleClass="btn-floating right red MarRight10" 
+					action="#{cc.attrs.deleteAction}">
+					<i class="material-icons">delete</i>
+				</h:commandLink>
+			</h:form>
+			<h:outputText value="#{cc.attrs.cmt.blog.title}" rendered="#{cc.attrs.isMyComments}" styleClass="card-title" />
+			<p>
+				<h:outputText value="#{cc.attrs.cmt.comment}" />
+			</p>
+			<h:outputText value="#{cc.attrs.cmt.user.name}" styleClass="left Fs10 grey-text" /><br/>
+			<h:outputText value="#{cc.attrs.cmt.security.creation}" styleClass="grey-text Fs10" >
+				<f:converter binding="#{commonDateTimeConverter}" />
+			</h:outputText>
+		</div>
+	</div>
+	
+</composite:implementation>
+</div>
