@@ -34,7 +34,7 @@ public class UserBean implements Serializable {
     	user.getSecurity().setModification(new Date());
     	user.getSecurity().setModUser(user.getLoginId());
     	model.editUser(user);
-    	return "/profile?faces-redirect=true";
+    	return "/user/profile?faces-redirect=true";
     }
 
     @ErrorHandler

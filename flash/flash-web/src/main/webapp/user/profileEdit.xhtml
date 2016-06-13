@@ -11,7 +11,7 @@
 		</ui:define>
 		
 		<ui:define name="content">
-			<h:form>
+			<h:form enctype="multipart/form-data">
 			<div class="card">
 				<div class="card-content">
 					<span class="card-title">Edit User Profile</span>
@@ -20,8 +20,12 @@
 					
 					
 					<div class="row">
-						<div class="col l4">
+						<div class="col l4 center-align">
 							<h:graphicImage name="user.png" library="img" styleClass="MarTop20 responsive-img card-image" />
+							
+							<h:inputFile styleClass="btn">
+								
+							</h:inputFile>
 						</div>
 						<div class="col l8">
 
@@ -39,6 +43,7 @@
 								</div>
 								<div class="col l8 input-field">
 									<h:inputText value="#{userBean.user.dob}" styleClass="datepicker" p:type="date">
+										<f:converter binding="#{profileDateFormatter}"></f:converter>
 									</h:inputText>
 									<h:outputLabel value="Date of Birth" />
 								</div>
@@ -53,6 +58,8 @@
 								<h:inputTextarea value="#{userBean.user.introduction}" styleClass="materialize-textarea" />
 								<h:outputLabel value="Greeting" />
 							</div>
+							
+							<h:commandButton action="#{userBean.editUserInfo()}" value="Save" styleClass="btn" />
 
 						</div>
 					</div>
