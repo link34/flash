@@ -6,8 +6,10 @@ import java.util.Date;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 
 import com.solt.flash.entity.User;
+import com.solt.flash.image.FlashImageService;
 import com.solt.flash.interceptor.ErrorHandler;
 import com.solt.flash.model.UserModel;
 import com.solt.flash.producers.LoginUser;
@@ -25,9 +27,14 @@ public class UserBean implements Serializable {
 	private String oldPass;
 	private String newPass;
 	private String confPass;
+
+	private Part file;
     
     @Inject
     private UserModel model;
+    
+    @Inject
+    private FlashImageService imageService;
 
     @ErrorHandler
     public String editUserInfo() {
@@ -43,6 +50,10 @@ public class UserBean implements Serializable {
     	user.getSecurity().setModUser(user.getLoginId());
     	model.changePass(user.getLoginId(), oldPass, newPass, confPass);
     	return "/home?faces-redirect=true";
+    }
+    
+    public void uploadPhoto() {
+    	user.setImage(imageService.saveImage(user.getLoginId(), file));
     }
 
 	public User getUser() {
@@ -77,4 +88,11 @@ public class UserBean implements Serializable {
 		this.confPass = confPass;
 	}
 
+	public Part getFile() {
+		return file;
+	}
+
+	public void setFile(Part file) {
+		this.file = file;
+	}
 }
