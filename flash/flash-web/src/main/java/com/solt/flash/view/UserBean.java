@@ -35,7 +35,7 @@ public class UserBean implements Serializable {
     
     @Inject
     private FlashImageService imageService;
-
+    
     @ErrorHandler
     public String editUserInfo() {
     	user.getSecurity().setModification(new Date());

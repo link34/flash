@@ -20,11 +20,11 @@
 					
 					
 					<div class="row">
-						<div class="col l4 center-align">
+						<div class="col m4 center-align">
 							<h:graphicImage value="#{imageBaseUrl}#{empty userBean.user.image? defaultProfile : userBean.user.imageUrl}" styleClass="MarTop20 responsive-img card-image" id="profileImage" />
 							
 						</div>
-						<div class="col l8">
+						<div class="col m8">
 
 							<div class="input-field">
 								<h:inputText value="#{userBean.user.name}" />
@@ -57,8 +57,8 @@
 							</div>
 							
 							<h:inputFile styleClass="btn MarBot20" value="#{userBean.file}">
-								<f:ajax execute="@this" render="profileImage" listener="#{userBean.uploadPhoto()}"></f:ajax>
-							</h:inputFile>
+								<f:ajax execute="@this" render="@form" listener="#{userBean.uploadPhoto()}"></f:ajax>
+							</h:inputFile><br/>
 
 							<h:commandButton action="#{userBean.editUserInfo()}" value="Save" styleClass="btn" />
 
