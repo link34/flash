@@ -3,8 +3,10 @@ package com.solt.flash.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
@@ -17,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,8 +34,7 @@ public class Blog implements Serializable {
 
 	public Blog() {
 		security = new SecurityInfo();
-		tags = new HashSet<>();
-		rate = new HashSet<>();
+		rate = new HashMap<>();
 		comments = new HashSet<>();
 		status = Status.Edit;
     }
@@ -55,11 +57,8 @@ public class Blog implements Serializable {
 
     @ElementCollection(fetch = EAGER)
     @CollectionTable
-    private Set<String> tags;
-
-    @ElementCollection
-    @CollectionTable
-    private Set<Integer> rate;
+    @MapKeyColumn(name="login")
+    private Map<String, String> rate;
     
     @OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "blog", fetch = EAGER)
     private Set<Comment> comments;
@@ -142,19 +141,11 @@ public class Blog implements Serializable {
 		this.category = category;
 	}
 
-	public Set<String> getTags() {
-		return tags;
-	}
-
-	public void setTags(Set<String> tags) {
-		this.tags = tags;
-	}
-
-	public Set<Integer> getRate() {
+	public Map<String, String> getRate() {
 		return rate;
 	}
 
-	public void setRate(Set<Integer> rate) {
+	public void setRate(Map<String, String> rate) {
 		this.rate = rate;
 	}
 
@@ -181,14 +172,6 @@ public class Blog implements Serializable {
 		comment.setBlog(this);
 		comments.add(comment);
 	}
-
-	public void addTag(String tag) {
-		tags.add(tag);
-    }
-
-    public List<String> getTagList() {
-        return new ArrayList<>(tags);
-    }
 
     public String getImage() {
 		return image;

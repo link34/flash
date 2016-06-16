@@ -30,7 +30,6 @@ public class BlogModelImp implements BlogModel {
     public Blog findBlogById(long id) {
     	Blog b = blogDao.findById(id);
     	b.getComments().size();
-    	b.getTagList();
         return b;
     }
 

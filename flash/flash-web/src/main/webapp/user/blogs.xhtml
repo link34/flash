@@ -12,7 +12,7 @@
 		
 		<ui:define name="content">
 			<ui:repeat var="blog" value="#{userBlogsBean.blogs}">
-				<flash:blogItem blog="#{blog}" isMyBlogs="true" />
+				<flash:blogItem blog="#{blog}" isMyBlogs="true" rateActionListener="#{userBlogsBean.vote(blog, 'mode')}" />
 			</ui:repeat>
 		</ui:define>
 	</ui:composition>

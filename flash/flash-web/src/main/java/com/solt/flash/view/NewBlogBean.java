@@ -1,9 +1,6 @@
 package com.solt.flash.view;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -35,7 +32,6 @@ public class NewBlogBean implements Serializable {
     private BlogModel model;
     
     private boolean publish;
-    private String tags;
     
     private Part file;
     
@@ -50,11 +46,6 @@ public class NewBlogBean implements Serializable {
 
     @ErrorHandler
     public String save() {
-    	if(null != tags) {
-    		Set<String> set = new HashSet<>(Arrays.asList(tags.split(",")));
-        	blog.setTags(set);
-    	}
-    	
     	blog.setStatus((publish) ? Status.Published : Status.Edit);
 		model.createBlog(blog);
 		return "/blog?faces-redirect=true&id=" + blog.getId();
@@ -78,14 +69,6 @@ public class NewBlogBean implements Serializable {
 
 	public void setPublish(boolean publish) {
 		this.publish = publish;
-	}
-
-	public String getTags() {
-		return tags;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
 	}
 
 	public Part getFile() {

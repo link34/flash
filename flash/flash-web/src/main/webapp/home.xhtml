@@ -16,7 +16,7 @@
 			</div>
 			
 			<ui:repeat var="blog" value="#{blogListBean.blogs}">
-				<flash:blogItem blog="#{blog}" />
+				<flash:blogItem blog="#{blog}" rateActionListener="#{blogListBean.vote(blog, 'mode')}" />
 			</ui:repeat>
 			
 		</ui:define>

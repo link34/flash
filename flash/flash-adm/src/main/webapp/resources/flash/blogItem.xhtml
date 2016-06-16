@@ -36,11 +36,6 @@
 					<h:outputText value="#{cc.attrs.blog.body}" />
 					</p>
 					
-					<div class="MarTop10 MarBot10">
-						<ui:repeat var="tag" value="#{cc.attrs.blog.tagList}">
-							<h:outputText value="#{tag}" styleClass="chip MarRight10 Fs9" />
-						</ui:repeat>
-					</div>
 					<h:link styleClass="deep-purple-text Fs10" value="Read More" outcome="#{cc.attrs.detailsOutcome}">
 						<f:param name="id" value="#{cc.attrs.blog.id}"></f:param>
 					</h:link>

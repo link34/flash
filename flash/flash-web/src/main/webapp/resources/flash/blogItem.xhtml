@@ -5,6 +5,7 @@
 <composite:interface>
 	<composite:attribute name="blog" type="com.solt.flash.entity.Blog" required="true"></composite:attribute>
 	<composite:attribute name="isMyBlogs" type="boolean" default="false"></composite:attribute>
+	<composite:attribute name="rateActionListener" method-signature="void method(com.solt.flash.entity.Blog, java.lang.String)" required="true"></composite:attribute>
 </composite:interface>
 <composite:implementation>
 	<h:form>
@@ -20,10 +21,16 @@
 				<h:outputText value="#{cc.attrs.blog.comments.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
 			</span>		
 			<span class="MarRight10 valign-wrapper left">
-				<h:link styleClass="cyan-text text-darken-4">
+				<h:commandLink styleClass="cyan-text text-darken-4" 
+					actionListener="#{cc.attrs.rateActionListener}"
+					rendered="#{not empty loginUser}">
 					<i class="material-icons Fs16 valign MarRight05 valign right">mood</i>
-				</h:link>	
-				<h:outputText value="#{cc.attrs.blog.comments.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
+					<f:ajax execute="@this" render="rateCount"></f:ajax>
+				</h:commandLink>
+				<h:panelGroup rendered="#{empty loginUser}">
+					<i class="material-icons Fs16 valign MarRight05 valign right">mood</i>
+				</h:panelGroup>	
+				<h:outputText id="rateCount" value="#{cc.attrs.blog.rate.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
 			</span>	
 			<h:outputText value="#{cc.attrs.blog.category.category}" styleClass="cyan-text text-darken-4" />
 			<h:panelGroup rendered="#{cc.attrs.isMyBlogs}" styleClass="right">

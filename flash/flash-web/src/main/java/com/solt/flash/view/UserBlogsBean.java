@@ -63,6 +63,17 @@ public class UserBlogsBean implements Serializable {
     	model.saveBlog(b);
     }
 
+    @ErrorHandler
+    public void vote(Blog blog, String value) {
+    	if(blog.getRate().containsKey(loginUser.getLoginId())) {
+    		blog.getRate().remove(loginUser.getLoginId());
+    	} else {
+    		blog.getRate().put(loginUser.getLoginId(), value);
+    	}
+    	
+    	model.saveBlog(blog);
+    }
+    
 	public List<Blog> getBlogs() {
 		return blogs;
 	}

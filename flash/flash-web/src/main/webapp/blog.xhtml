@@ -14,6 +14,7 @@
 			
 			<!-- Blog -->
 			<h:panelGroup rendered="#{not empty blogBean.blog}">
+			<h:form>
 			<div class="card">
 
 				<div class="card-image waves-effect waves-block waves-light">
@@ -27,10 +28,14 @@
 						<h:outputText value="#{blogBean.blog.comments.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
 					</span>		
 					<span class="MarRight10 valign-wrapper right">
-						<h:link styleClass="cyan-text text-darken-4">
+						<h:commandLink styleClass="cyan-text text-darken-4" actionListener="#{blogBean.vote('mode')}" rendered="#{not empty loginUser}">
 							<i class="material-icons Fs16 valign MarRight05 valign right">mood</i>
-						</h:link>	
-						<h:outputText value="#{blogBean.blog.comments.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
+							<f:ajax execute="@this" render="rateCount" ></f:ajax>
+						</h:commandLink>
+						<h:panelGroup rendered="#{empty loginUser}">
+							<i class="material-icons Fs16 valign MarRight05 valign right">mood</i>
+						</h:panelGroup>	
+						<h:outputText id="rateCount" value="#{blogBean.blog.rate.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
 					</span>	
 					<span class="MarRight10 valign-wrapper right">
 						<h:link styleClass="cyan-text text-darken-4" outcome="/home">
@@ -62,6 +67,7 @@
 
 				</div>
 			</div>
+			</h:form>
 			</h:panelGroup>
 			
 			<!-- Comments -->

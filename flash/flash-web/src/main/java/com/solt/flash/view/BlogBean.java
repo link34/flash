@@ -1,10 +1,7 @@
 package com.solt.flash.view;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -15,9 +12,9 @@ import javax.servlet.http.Part;
 
 import com.solt.flash.entity.Blog;
 import com.solt.flash.entity.Blog.Status;
-import com.solt.flash.image.FlashImageService;
 import com.solt.flash.entity.Comment;
 import com.solt.flash.entity.User;
+import com.solt.flash.image.FlashImageService;
 import com.solt.flash.interceptor.ErrorHandler;
 import com.solt.flash.model.BlogModel;
 import com.solt.flash.producers.LoginUser;
@@ -29,7 +26,6 @@ public class BlogBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Blog blog;
-    private String tags;
     private boolean publish;
 
     private String newComment;
@@ -56,24 +52,12 @@ public class BlogBean implements Serializable {
     	if(null != id) {
     		blog = model.findBlogById(Long.parseLong(id));
     		publish = blog.getStatus().equals(Status.Published);
-    		StringBuffer sb = new StringBuffer();
-    		for(int i=0; i < blog.getTagList().size(); i++) {
-    			if(i > 0) {
-    				sb.append(",");
-    			}
-    			sb.append(blog.getTagList().get(i));
-    		}
-    		tags = sb.toString();
     	}
     }
 
     @ErrorHandler
     public String save() {
     	blog.setStatus(publish ? Status.Published: Status.Edit);
-    	if(null != tags) {
-    		Set<String> set = new HashSet<>(Arrays.asList(tags.split(",")));
-    		blog.setTags(set);
-    	}
     	model.saveBlog(blog);
     	return "/blog?faces-redirect=true&id=" + blog.getId();
     }
@@ -92,6 +76,17 @@ public class BlogBean implements Serializable {
     public void editComment(Comment comment) {
     	this.selectedComment = comment;
     	modalScript = "$('#editComment').openModal();";
+    }
+    
+    @ErrorHandler
+    public void vote(String value) {
+    	if(blog.getRate().containsKey(loginUser.getLoginId())) {
+    		blog.getRate().remove(loginUser.getLoginId());
+    	} else {
+    		blog.getRate().put(loginUser.getLoginId(), value);
+    	}
+    	
+    	model.saveBlog(blog);
     }
 
     @ErrorHandler
@@ -142,14 +137,6 @@ public class BlogBean implements Serializable {
 
 	public void setSelectedComment(Comment selectedComment) {
 		this.selectedComment = selectedComment;
-	}
-
-	public String getTags() {
-		return tags;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
 	}
 
 	public boolean isPublish() {

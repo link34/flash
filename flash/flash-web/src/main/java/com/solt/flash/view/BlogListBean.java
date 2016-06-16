@@ -18,6 +18,7 @@ import com.solt.flash.entity.User;
 import com.solt.flash.interceptor.ErrorHandler;
 import com.solt.flash.model.BlogModel;
 import com.solt.flash.model.BlogModel.SearchParam;
+import com.solt.flash.producers.LoginUser;
 import com.solt.flash.model.CategoryModel;
 import com.solt.flash.model.UserModel;
 
@@ -39,6 +40,10 @@ public class BlogListBean implements Serializable{
     private UserModel userModel;
     @Inject
     private CategoryModel catModel;
+    
+    @LoginUser
+    @Inject
+    private User loginUser;
     
     @PostConstruct
     private void init() {
@@ -64,6 +69,17 @@ public class BlogListBean implements Serializable{
     @ErrorHandler
     public void delete(Blog blog) {
     	model.deleteBlog(blog);
+    }
+    
+    @ErrorHandler
+    public void vote(Blog blog, String value) {
+    	if(blog.getRate().containsKey(loginUser.getLoginId())) {
+    		blog.getRate().remove(loginUser.getLoginId());
+    	} else {
+    		blog.getRate().put(loginUser.getLoginId(), value);
+    	}
+    	
+    	model.saveBlog(blog);
     }
 
     @ErrorHandler

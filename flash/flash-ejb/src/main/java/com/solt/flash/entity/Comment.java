@@ -1,17 +1,19 @@
 package com.solt.flash.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 
 @Entity
 public class Comment implements Serializable {
@@ -30,16 +32,17 @@ public class Comment implements Serializable {
 
 	private String comment;
 
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable
-	private List<String> rate;
+	@MapKeyColumn(name="login")
+	private Map<String, String> rate;
 
 	@Embedded
 	private SecurityInfo security;
 	
 	public Comment() {
 		security = new SecurityInfo();
-		rate = new ArrayList<>();
+		rate = new HashMap<>();
 	}
 
 	public long getId() {
@@ -76,11 +79,11 @@ public class Comment implements Serializable {
 		this.comment = comment;
 	}
 
-	public List<String> getRate() {
+	public Map<String, String> getRate() {
 		return rate;
 	}
 
-	public void setRate(List<String> rate) {
+	public void setRate(Map<String, String> rate) {
 		this.rate = rate;
 	}
 
@@ -91,7 +94,5 @@ public class Comment implements Serializable {
 	public void setSecurity(SecurityInfo security) {
 		this.security = security;
 	}
-
-
 
 }
