@@ -22,11 +22,17 @@ public class ImageResourceProducer {
 	@Produces
 	private String defaultProfile;
 	
+	@Named
+	@DefaultCoverImage
+	@Produces
+	private String defaultCover;
+	
 	@PostConstruct
 	private void init() {
 		imageStorage = System.getProperty("app.flash.image.storage");
 		imageBaseUrl = System.getProperty("app.flash.image.baseUrl");
 		
 		defaultProfile = "user.png";
+		defaultCover = "cover.png";
 	}
 }

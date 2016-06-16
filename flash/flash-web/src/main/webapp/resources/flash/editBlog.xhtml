@@ -6,20 +6,16 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 	<composite:attribute name="title" type="java.lang.String" required="true" />
 	<composite:attribute name="blog" type="com.solt.flash.entity.Blog" required="true" />
 	<composite:attribute name="tags" type="java.lang.String" required="true" />
+	<composite:attribute name="imageFile" type="javax.servlet.http.Part" required="true" />
 	<composite:attribute name="publish" type="boolean" required="true" />
 	<composite:attribute name="actionName" type="java.lang.String" required="true" />
 	<composite:attribute name="saveAction" method-signature="java.lang.String method()" required="true" />
+	<composite:attribute name="uploadListener" method-signature="void method()" required="true" />
 </composite:interface>
 <composite:implementation>
-	<h:form>
+	<h:form enctype="multipart/form-data">
 		<div class="card">
 			<div class="card-content">
-				<h:outputText value="#{cc.attrs.title}" styleClass="card-title" />
-				
-				<div class="input-field">
-					<h:inputText value="#{cc.attrs.blog.title}" />
-					<h:outputLabel value="Title" />
-				</div>	
 				
 				<div class="row">
 					<div class="col l4 m6 s12">
@@ -33,15 +29,23 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 					</div>
 					<div class="col l8 m6 s12">
 						<div class="input-field">
-							<h:inputText value="#{cc.attrs.tags}" />
-							<h:outputLabel value="Tags" />
+							<h:inputText value="#{cc.attrs.blog.title}" />
+							<h:outputLabel value="Memory" />
 						</div>
 					</div>
 				</div>
-				
+				<div class="card-image responsive-image">
+					<h:graphicImage value="#{imageBaseUrl}#{empty cc.attrs.blog.image ? defaultCover : cc.attrs.blog.imageUrl}" /><br/>
+				</div>				
+				<div class="input-field">
+					<h:inputFile value="#{cc.attrs.imageFile}" styleClass="btn" >
+						<f:ajax execute="@form" render="@all" listener="#{cc.attrs.uploadListener}"></f:ajax>
+					</h:inputFile>
+				</div>	
+
 				<div class="input-field">
 					<h:inputTextarea id="body" value="#{cc.attrs.blog.body}" styleClass="materialize-textarea" rows="10" />
-					<h:outputLabel value="Memory" for="body" />
+					<h:outputLabel value="Description" for="body" />
 				</div>	
 				
 				<div>

@@ -51,7 +51,7 @@
 							
 							<div class="row MarTop10">
 								<div class="col l6 center-align">
-									<h:graphicImage name="user.png" library="img" styleClass="card-image responsive-img" />
+									<h:graphicImage value="#{imageBaseUrl}#{empty user.image? defaultProfile : user.imageUrl}" styleClass="card-image responsive-img" />
 									<h:outputText value="#{user.status}" /><br/>
 									<h:outputText value="#{user.security.creation}" converter="#{commonDateTimeConverter}" />
 									<h:outputText value="#{user.email}" styleClass="grey-text"/>

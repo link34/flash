@@ -11,9 +11,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 
 import com.solt.flash.entity.Blog;
 import com.solt.flash.entity.Blog.Status;
+import com.solt.flash.image.FlashImageService;
 import com.solt.flash.entity.Comment;
 import com.solt.flash.entity.User;
 import com.solt.flash.interceptor.ErrorHandler;
@@ -34,12 +36,17 @@ public class BlogBean implements Serializable {
     private Comment selectedComment;
     private String modalScript;
     
+    private Part file;
+    
     @LoginUser
     @Inject
     private User loginUser;
 
     @Inject
     private BlogModel model;
+    
+    @Inject
+    private FlashImageService service;
 
     @PostConstruct
     public void init() {
@@ -108,6 +115,10 @@ public class BlogBean implements Serializable {
     	model.saveBlog(blog);
     	return "/blog?faces-redirect=true&id=" + blog.getId();
     }
+    
+    public void uploadImage() {
+    	blog.setImage(service.saveImage(loginUser.getLoginId(), file));
+    }
 
 	public Blog getBlog() {
 		return blog;
@@ -155,6 +166,14 @@ public class BlogBean implements Serializable {
 
 	public void setModalScript(String modalScript) {
 		this.modalScript = modalScript;
+	}
+
+	public Part getFile() {
+		return file;
+	}
+
+	public void setFile(Part file) {
+		this.file = file;
 	}
 
 }

@@ -2,19 +2,16 @@ package com.solt.flash.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.OneToMany;
 
 @Entity
 public class User implements Serializable {
@@ -48,10 +45,6 @@ public class User implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @ElementCollection
-    @CollectionTable
-    private List<String> galary;
 
     @Enumerated
     private Status status;
@@ -149,14 +142,6 @@ public class User implements Serializable {
 		this.role = role;
 	}
 
-	public List<String> getGalary() {
-		return galary;
-	}
-
-	public void setGalary(List<String> galary) {
-		this.galary = galary;
-	}
-
 	public Status getStatus() {
 		return status;
 	}
@@ -210,7 +195,6 @@ public class User implements Serializable {
 		int result = 1;
 		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((galary == null) ? 0 : galary.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((image == null) ? 0 : image.hashCode());
 		result = prime * result + ((introduction == null) ? 0 : introduction.hashCode());
@@ -241,11 +225,7 @@ public class User implements Serializable {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (galary == null) {
-			if (other.galary != null)
-				return false;
-		} else if (!galary.equals(other.galary))
-			return false;
+
 		if (gender != other.gender)
 			return false;
 		if (image == null) {

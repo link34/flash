@@ -42,6 +42,7 @@ public class Blog implements Serializable {
     private long id;
 
     private String title;
+    private String image;
 
     @Lob
     private String body;
@@ -189,7 +190,21 @@ public class Blog implements Serializable {
         return new ArrayList<>(tags);
     }
 
-    public enum Status {
+    public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
+	public String getImageUrl() {
+		if(null != user && null != image)
+			return user.getLoginId().concat("/").concat(image);
+		return "";
+	}
+
+	public enum Status {
         Edit,
         Published
     }

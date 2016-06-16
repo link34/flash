@@ -9,63 +9,22 @@
 <composite:implementation>
 	<h:form>
 	<div class="card">
+		<div class="card-image waves-effect waves-block waves-light">
+			<h:graphicImage value="#{imageBaseUrl}#{empty cc.attrs.blog.image ? defaultCover : cc.attrs.blog.imageUrl}" />
+			<h:outputText value="#{cc.attrs.blog.title}" styleClass="card-title" />
+		</div>					
 		<div class="card-content">
-			<div class="row">
-				<div class="col l3 center">
-					<h:outputText value="#{cc.attrs.blog.comments.size()}" styleClass="Fs60" /><br/>
-					<h:outputText value="#{cc.attrs.blog.category.category}" /><br/>
-					<h:outputText value="#{cc.attrs.blog.status}" styleClass="Fs10 grey-text" rendered="#{cc.attrs.isMyBlogs}" />
-					<h:link value="#{cc.attrs.blog.user.name}" outcome="/home" styleClass="Fs10 grey-text" 
-						rendered="#{not cc.attrs.isMyBlogs}">
-						<f:param name="user" value="#{cc.attrs.blog.user.loginId}"></f:param>
-					</h:link>
-				</div>
-				<div class="col l9">
-					<h:link styleClass="btn-floating cyan darken-1 white-text right" outcome="/blog">
-						<i class="material-icons">subject</i>
-						<f:param name="id" value="#{cc.attrs.blog.id}"></f:param>
-					</h:link>
-					<h:outputText styleClass="card-title brown-text darken-4" value="#{cc.attrs.blog.title}" /><br/>
-					<h:outputText value="#{cc.attrs.blog.security.creation}" styleClass="Fs10 grey-text" >
-						<f:converter binding="#{commonDateTimeConverter}" />
-					</h:outputText>
-					<p>
-					<h:outputText value="#{cc.attrs.blog.body}" styleClass="cyan-text darken-4" />
-					</p>
-					
-					<div class="MarTop10 MarBot10">
-						<ui:repeat var="tag" value="#{cc.attrs.blog.tagList}">
-							<h:outputText value="#{tag}" styleClass="chip MarRight10 Fs9 cyan" />
-						</ui:repeat>
-					</div>
-					
-					<h:panelGroup rendered="#{cc.attrs.isMyBlogs}">
-						<h:commandLink actionListener="#{userBlogsBean.delete(blog)}" 
-							styleClass="btn-floating MarRight10 cyan accent-1">
-							<i class="material-icons cyan-text text-darken4">delete</i>
-							<f:ajax execute="@this" render="@all"></f:ajax>
-						</h:commandLink>
-						<h:commandLink actionListener="#{userBlogsBean.publish(blog)}" 
-							styleClass="btn-floating MarRight10 cyan accent-1" 
-							rendered="#{cc.attrs.blog.status eq 'Edit'}">
-							<i class="material-icons cyan-text text-darken4">play_arrow</i>
-							<f:ajax execute="@this" render="@form" ></f:ajax>
-						</h:commandLink>
-						<h:commandLink actionListener="#{userBlogsBean.unPublish(blog)}"
-							styleClass="btn-floating MarRight10 cyan accent-1" 
-							rendered="#{cc.attrs.blog.status eq 'Published'}">
-							<i class="material-icons cyan-text text-darken4">stop</i>
-							<f:ajax execute="@this" render="@form" ></f:ajax>
-						</h:commandLink>
-						<h:link styleClass="btn-floating MarRight10 cyan accent-1"
-							 outcome="/user/editBlog">
-							<i class="material-icons cyan-text text-darken4">edit</i>
-							<f:param name="id" value="#{cc.attrs.blog.id}"></f:param>
-						</h:link>
-					</h:panelGroup>
-				</div>
-			</div>
+			<h:link styleClass="right" outcome="/blog">
+				<i class="material-icons">subject</i>
+				<f:param name="id" value="#{cc.attrs.blog.id}"></f:param>
+			</h:link>
+			<h:outputText value="#{cc.attrs.blog.user.name}" /><br/>
+			<h:outputText value="#{cc.attrs.blog.security.creation}" styleClass="Fs10 grey-text" >
+				<f:converter binding="#{commonDateTimeConverter}" />
+			</h:outputText>
+			
 		</div>
+
 	</div>
 </h:form>
 </composite:implementation>

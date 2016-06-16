@@ -123,6 +123,13 @@ public class BlogModelImp implements BlogModel {
 			sb.append(":tag MEMBER OF t.tags");
 			searchParam.put("tag", tagValue);
 		}
+		
+		// valid user
+		if(searchParam.size() > 0) {
+			sb.append("and ");
+		}
+		sb.append("t.user.status = :userStatus");
+		searchParam.put("userStatus", User.Status.Valid);
 
         return blogDao.select(sb.toString(), searchParam);
 	}
@@ -130,11 +137,14 @@ public class BlogModelImp implements BlogModel {
 	@Override
 	public List<Comment> getUserComments(User user) {
 		
-		String where = "t.user = :user";
-		Map<String, Object> params = new HashMap<>();
-		params.put("user", user);
-		
-		return commentDao.select(where, params);
+		if(user.getStatus().equals(User.Status.Valid)) {
+			String where = "t.user = :user";
+			Map<String, Object> params = new HashMap<>();
+			params.put("user", user);
+			
+			return commentDao.select(where, params);
+		}
+		return null;
 	}
 
 	@Override

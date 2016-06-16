@@ -14,6 +14,8 @@
 			<flash:editBlog saveAction="#{newBlogBean.save()}" 
 				blog="#{newBlogBean.blog}" 
 				publish="#{newBlogBean.publish}"
+				imageFile="#{newBlogBean.file}"
+				uploadListener="#{newBlogBean.uploadImage()}"
 				title="New Memory"
 				actionName="Add To Flash"
 				tags="#{newBlogBean.tags}"/>

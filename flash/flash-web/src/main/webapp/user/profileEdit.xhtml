@@ -56,8 +56,8 @@
 								<h:outputLabel value="Greeting" />
 							</div>
 							
-							<h:inputFile styleClass="btn MarBot20" value="#{userBean.file}">
-								<f:ajax execute="@this" render="@form" listener="#{userBean.uploadPhoto()}"></f:ajax>
+							<h:inputFile styleClass="btn MarBot20 input-field" value="#{userBean.file}">
+								<f:ajax execute="@form" render="@all" listener="#{userBean.uploadPhoto()}"></f:ajax>
 							</h:inputFile><br/>
 
 							<h:commandButton action="#{userBean.editUserInfo()}" value="Save" styleClass="btn" />
