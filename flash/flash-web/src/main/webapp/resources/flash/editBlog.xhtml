@@ -38,7 +38,7 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 					<h:graphicImage value="#{imageBaseUrl}#{empty cc.attrs.blog.image ? defaultCover : cc.attrs.blog.imageUrl}" /><br/>
 				</div>				
 				<div class="input-field">
-					<h:inputFile value="#{cc.attrs.imageFile}" styleClass="btn" >
+					<h:inputFile value="#{cc.attrs.imageFile}" styleClass="btn cyan" >
 						<f:ajax execute="@form" render="@all" listener="#{cc.attrs.uploadListener}"></f:ajax>
 					</h:inputFile>
 				</div>	
@@ -51,7 +51,7 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 				<div>
 					<h:selectBooleanCheckbox id="publish" value="#{cc.attrs.publish}" />
 					<h:outputLabel value="Publish" for="publish" styleClass="MarRight20" />
-					<h:commandLink action="#{cc.attrs.saveAction}" value="#{cc.attrs.actionName}" styleClass="btn MarRight10" />
+					<h:commandLink action="#{cc.attrs.saveAction}" value="#{cc.attrs.actionName}" styleClass="btn MarRight10 cyan" />
 				</div>			
 			</div>
 		</div>

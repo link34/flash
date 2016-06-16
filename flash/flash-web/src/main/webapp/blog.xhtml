@@ -15,43 +15,50 @@
 			<!-- Blog -->
 			<h:panelGroup rendered="#{not empty blogBean.blog}">
 			<div class="card">
+
+				<div class="card-image waves-effect waves-block waves-light">
+					<h:graphicImage value="#{imageBaseUrl}#{empty blogBean.blog.image ? defaultCover : blogBean.blog.imageUrl}" />
+					<h:outputText value="#{blogBean.blog.title}" styleClass="card-title" />
+				</div>			
+
+				<div class="card-content">
+					<span class="MarRight10 valign-wrapper right">
+						<i class="material-icons Fs16 valign MarRight05 cyan-text text-darken-4">chat</i>
+						<h:outputText value="#{blogBean.blog.comments.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
+					</span>		
+					<span class="MarRight10 valign-wrapper right">
+						<h:link styleClass="cyan-text text-darken-4">
+							<i class="material-icons Fs16 valign MarRight05 valign right">mood</i>
+						</h:link>	
+						<h:outputText value="#{blogBean.blog.comments.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
+					</span>	
+					<span class="MarRight10 valign-wrapper right">
+						<h:link styleClass="cyan-text text-darken-4" outcome="/home">
+							<i class="material-icons Fs16 valign MarRight05 valign right">person</i>
+							<f:param name="user" value="#{blogBean.blog.user.loginId}"></f:param>
+						</h:link>	
+						<h:outputText value="#{blogBean.blog.user.name}" styleClass="Fs16 valign cyan-text text-darken-4" />
+					</span>	
+					<h:outputText value="#{blogBean.blog.category.category}" styleClass="cyan-text text-darken-4" />
+				</div>
+				
+				<div class="divider" />
+				
 				<div class="card-content">
 				
-					<div class="row">
-					
-						<div class="col l3 center-align">
-							<h:outputText value="#{blogBean.blog.comments.size()}" styleClass="Fs60" id="commentCount" />
-							<br/>
-							<h:outputText value="#{blogBean.blog.category.category}" /><br/>
-							<h:link value="#{blogBean.blog.user.name}" styleClass="Fs10" outcome="/home">
-								<f:param name="user" value="#{blogBean.blog.user.loginId}"></f:param>
-							</h:link>
-						</div>
-						
-						<div class="col l9">
-							<h:outputText value="#{blogBean.blog.title}" styleClass="card-title MarRight30" />
-							<h:link styleClass="btn-floating right blue" outcome="/user/editBlog"
-								rendered="#{loginUser.loginId eq blogBean.blog.user.loginId}">
-								<i class="material-icons">edit</i>
-								<f:param name="id" value="#{blogBean.blog.id}"></f:param>
-							</h:link>
-							<br/>
-							<h:outputText value="#{blogBean.blog.security.creation}" styleClass="grey-text Fs10" >
-								<f:converter binding="#{commonDateTimeConverter}"></f:converter>
-							</h:outputText>
+					<h:link styleClass="btn-floating right cyan accent-4" outcome="/user/editBlog"
+						rendered="#{loginUser.loginId eq blogBean.blog.user.loginId}">
+						<i class="material-icons">edit</i>
+						<f:param name="id" value="#{blogBean.blog.id}"></f:param>
+					</h:link>
 
-							<p>
-								<h:outputText value="#{blogBean.blog.body}" />
-							</p>
-							<div class="MarTop10">
-								<ui:repeat var="tag" value="#{blogBean.blog.tagList}">
-									<h:outputText value="#{tag}" styleClass="chip MarRight10 Fs10" />
-								</ui:repeat>
-							</div>
-		
-						
-						</div>
-					</div>
+					<p>
+						<h:outputText value="#{blogBean.blog.body}" styleClass="cyan-text text-darken-2" />
+					</p>
+					<h:outputText value="#{blogBean.blog.security.creation}" styleClass="grey-text Fs10" >
+						<f:converter binding="#{commonDateTimeConverter}"></f:converter>
+					</h:outputText>
+					<br/>
 
 				</div>
 			</div>
@@ -59,7 +66,7 @@
 			
 			<!-- Comments -->
 			<h:panelGroup id="commentList" rendered="#{not empty blogBean.blog.commentList}">
-				<h4 class="grey-text">Comments</h4>
+				<h4 class="cyan-text">Comments</h4>
 				<ui:repeat var="cmt" value="#{blogBean.blog.commentList}">
 					<flash:commentItem cmt="#{cmt}" 
 						editActionListener="#{blogBean.editComment(cmt)}"
@@ -71,12 +78,12 @@
 			
 				<div class="modal" id="editComment">
 					<div class="modal-content">
-						<h5>Edit Comment</h5>
+						<h5 class="cyan-text">Edit Comment</h5>
 			
 						<div class="input-field" id="commentData">
 							<h:inputTextarea value="#{blogBean.selectedComment.comment}" styleClass="materialize-textarea" id="comment"/>
 						</div>	
-						<h:commandLink styleClass="btn teal" action="#{blogBean.saveComment()}" value="Save Comment" />
+						<h:commandLink styleClass="btn cyan" action="#{blogBean.saveComment()}" value="Save Comment" />
 			
 					</div>
 				</div>
@@ -91,12 +98,11 @@
 			<h:form rendered="#{not empty loginUser}">
 			<div class="card">
 				<div class="card-content">
-					<span class="card-title">Add New Comment</span>
 					<div class="input-field">
 						<h:inputTextarea value="#{blogBean.newComment}" styleClass="materialize-textarea" id="comment"/>
 						<h:outputLabel value="Comment" for="comment" />
 					</div>	
-					<h:commandLink styleClass="btn teal" action="#{blogBean.addComment()}" value="Add Comment" />
+					<h:commandLink styleClass="btn cyan" action="#{blogBean.addComment()}" value="Add Comment" />
 				</div>
 			</div>
 			</h:form>			

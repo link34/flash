@@ -30,6 +30,10 @@
 	margin-bottom: 30px;
 }
 
+.MarRight05 {
+	margin-right: 5px;
+}
+
 .MarRight10 {
 	margin-right: 10px;
 }
@@ -49,6 +53,10 @@
 
 .Fs10 {
 	font-size: 10px;
+}
+
+.Fs12 {
+	font-size: 12px;
 }
 
 .Fs16 {

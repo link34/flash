@@ -115,13 +115,13 @@
 		
 		<div class="row">
 			<div class="col l3 hide-on-med-and-down">
-				<ul class="collection with-header">
-					<li class="collection-header cyan accent-4 white-text"><h4>Category</h4></li>
+				<ul class="collection with-header card">
+					<li class="collection-header cyan accent-1 cyan-text text-darken-4"><h4>Category</h4></li>
 					<ui:repeat var="c" value="#{allCategory}">
-						<li class="collection-item">
+						<li class="collection-item cyan-text text-darken-4">
 							<div>
 							#{c.category}
-							<h:link styleClass="secondary-content cyan-text darken-3" outcome="/home">
+							<h:link styleClass="secondary-content cyan-text text-darken-4" outcome="/home">
 								<i class="material-icons">send</i>
 								<f:param name="cat" value="#{c.id}"></f:param>
 							</h:link>
@@ -129,6 +129,43 @@
 						</li>				
 					</ui:repeat>
 				</ul>
+				
+								<!-- Blogs  -->
+				<div class="card cyan accent-1">
+					<div class="card-content">
+						<i class="material-icons Fs36 cyan-text text-darken-4">description</i>
+						<h:outputText value="#{validBlogCount}" styleClass="Fs24 right cyan-text text-darken-4" /><br/>
+						<h:outputText value="Publish Counts" styleClass="Fs10 right cyan-text text-darken-4" />
+					</div>
+					<div class="card-action white" >
+						All Memories
+					</div>
+				</div>
+
+				<!-- Comments  -->
+				<div class="card cyan accent-1 cyan-text text-darken-4">
+					<div class="card-content">
+						<i class="material-icons Fs36 cyan-text text-darken-4">chat</i>
+						<h:outputText value="#{validCommentCount}" styleClass="Fs24 right cyan-text text-darken-4" /><br/>
+						<h:outputText value="Comment Counts" styleClass="Fs10 right cyan-text text-darken-4" />
+					</div>
+					<div class="card-action white" >
+						All Comments
+					</div>
+				</div>
+				
+				<!-- Users  -->
+				<div class="card cyan accent-1 cyan-text text-darken-4">
+					<div class="card-content">
+						<i class="material-icons Fs36 cyan-text text-darken-4">people</i>
+						<h:outputText value="#{validUserCount}" styleClass="Fs24 right cyan-text text-darken-4" /><br/>
+						<h:outputText value="Member Counts" styleClass="Fs10 right cyan-text text-darken-4" />
+					</div>
+					<div class="card-action white" >
+						All Users
+					</div>
+				</div>
+				
 			</div>
 
 			<div class="col l6 m12 s12">
@@ -137,41 +174,7 @@
 			</div>
 
 			<div class="col l3 hide-on-med-and-down">
-				<!-- Blogs  -->
-				<div class="card cyan accent-1">
-					<div class="card-content">
-						<i class="material-icons Fs36">description</i>
-						<h:outputText value="#{validBlogCount}" styleClass="Fs24 right" /><br/>
-						<h:outputText value="Publish Counts" styleClass="Fs10 right" />
-					</div>
-					<div class="card-action white" >
-						<h:link value="Show All" outcome="/admin/blogs" />
-					</div>
-				</div>
 
-				<!-- Comments  -->
-				<div class="card cyan accent-2">
-					<div class="card-content">
-						<i class="material-icons Fs36">chat</i>
-						<h:outputText value="#{validCommentCount}" styleClass="Fs24 right" /><br/>
-						<h:outputText value="Comment Counts" styleClass="Fs10 right" />
-					</div>
-					<div class="card-action white" >
-						<h:link value="Show All" outcome="/admin/comments" />
-					</div>
-				</div>
-				
-				<!-- Users  -->
-				<div class="card cyan accent-3">
-					<div class="card-content">
-						<i class="material-icons Fs36">people</i>
-						<h:outputText value="#{validUserCount}" styleClass="Fs24 right" /><br/>
-						<h:outputText value="Member Counts" styleClass="Fs10 right" />
-					</div>
-					<div class="card-action white" >
-						<h:link value="Show All" outcome="/admin/users" />
-					</div>
-				</div>
 			</div>
 
 		</div>

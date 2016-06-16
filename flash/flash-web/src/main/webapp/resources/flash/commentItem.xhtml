@@ -17,21 +17,21 @@
 	<div class="card">
 		<div class="card-content">
 			<h:form rendered="#{loginUser.loginId eq cmt.user.loginId}">
-				<h:commandLink styleClass="btn-floating right blue" actionListener="#{cc.attrs.editActionListener}">
+				<h:commandLink styleClass="btn-floating right cyan" actionListener="#{cc.attrs.editActionListener}">
 					<i class="material-icons">edit</i>
 					<f:ajax execute="@this" render="editCommentForm" />
 				</h:commandLink>
-				<h:commandLink styleClass="btn-floating right red MarRight10" 
+				<h:commandLink styleClass="btn-floating right cyan MarRight10" 
 					action="#{cc.attrs.deleteAction}">
 					<i class="material-icons">delete</i>
 				</h:commandLink>
 			</h:form>
-			<h:outputText value="#{cc.attrs.cmt.blog.title}" rendered="#{cc.attrs.isMyComments}" styleClass="card-title" />
+			<h:outputText value="#{cc.attrs.cmt.blog.title}" rendered="#{cc.attrs.isMyComments}" styleClass="card-title cyan-text text-darken-3" />
 			<p>
-				<h:outputText value="#{cc.attrs.cmt.comment}" />
+				<h:outputText value="#{cc.attrs.cmt.comment}" styleClass="cyan-text text-darken-4" />
 			</p>
-			<h:outputText value="#{cc.attrs.cmt.user.name}" styleClass="left Fs10 grey-text" /><br/>
-			<h:outputText value="#{cc.attrs.cmt.security.creation}" styleClass="grey-text Fs10" >
+			<h:outputText value="#{cc.attrs.cmt.user.name}" styleClass="left Fs10 cyan-text text-darken-1" /><br/>
+			<h:outputText value="#{cc.attrs.cmt.security.creation}" styleClass="cyan-text text-darken-1 Fs10" >
 				<f:converter binding="#{commonDateTimeConverter}" />
 			</h:outputText>
 		</div>
