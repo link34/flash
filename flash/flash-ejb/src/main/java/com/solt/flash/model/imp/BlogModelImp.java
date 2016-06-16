@@ -130,7 +130,7 @@ public class BlogModelImp implements BlogModel {
 		sb.append("t.user.status = :userStatus");
 		searchParam.put("userStatus", User.Status.Valid);
 
-        return blogDao.select(sb.toString(), searchParam);
+        return blogDao.select(sb.toString(), searchParam, " order by t.security.creation desc");
 	}
 
 	@Override

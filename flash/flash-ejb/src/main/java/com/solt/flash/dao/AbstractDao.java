@@ -58,6 +58,36 @@ public abstract class AbstractDao<T> implements Dao<T> {
 		
 		return query.getResultList();
 	}
+	
+	@Override
+	public List<T> select(String where, Map<String, Object> params, String sortParam) {
+		String sql = String.format(SELECT, type.getSimpleName());
+		
+		if(null != where &&
+				null != params &&
+				!where.isEmpty() &&
+				params.size() > 0) {
+			sql = sql.concat("where ").concat(where);
+		}
+		
+		if(null != sortParam) {
+			sql = sql.concat(sortParam);
+		}
+		
+		TypedQuery<T> query = em.createQuery(sql, type);
+		
+		if(null != where &&
+				null != params &&
+				!where.isEmpty() &&
+				params.size() > 0) {
+			for(String key : params.keySet()) {
+				query.setParameter(key, params.get(key));
+			}
+		}
+		
+		return query.getResultList();
+	}
+	
 	@Override
 	public T findById(Object id) {
 		return em.find(type, id);

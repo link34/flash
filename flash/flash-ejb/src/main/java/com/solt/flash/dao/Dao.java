@@ -13,6 +13,8 @@ public interface Dao<T> extends Serializable {
 
     public List<T> select(String where, Map<String, Object> params);
 
+    public List<T> select(String where, Map<String, Object> params, String sortParam);
+
     public T findById(Object id);
 
 }
