@@ -11,14 +11,9 @@
 		</ui:define>
 		
 		<ui:define name="content">
-			<div class="card">
-				<h:graphicImage styleClass="responsive-img card-image" name="cover-flash.png" library="img" />
-			</div>
-			
 			<ui:repeat var="blog" value="#{blogListBean.blogs}">
 				<flash:blogItem blog="#{blog}" rateActionListener="#{blogListBean.vote(blog, 'mode')}" />
 			</ui:repeat>
-			
 		</ui:define>
 	</ui:composition>
 </html>

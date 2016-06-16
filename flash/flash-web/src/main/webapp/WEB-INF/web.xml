@@ -14,6 +14,11 @@
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<context-param>
+		<param-name>flash.topblog.size</param-name>
+		<param-value>10</param-value>
+	</context-param>
 
 	<servlet-mapping>
 		<servlet-name>FacesServlet</servlet-name>

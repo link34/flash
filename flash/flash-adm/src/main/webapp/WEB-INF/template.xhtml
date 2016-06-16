@@ -20,7 +20,7 @@
 	<h:outputScript name="materialize.min.js" library="js"></h:outputScript>	
 
 	<h:form>
-	<nav>
+	<nav class="teal">
 		<div class="nav-wrapper container">
 			<h:link styleClass="brand-logo" value="Flash Admin" outcome="/admin/users"/>
 			<a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -65,35 +65,28 @@
 	</h:form>
 
 	<div class="container">
-		<div class="row MarTop20">
+		<div class="row MarTop10">
 			<div class="col l3 m4 hide-on-small-and-down">
-				<ul class="collection with-header">
+				<ul class="collection with-header card">
 					<li class="collection-header">
-						<h4>Category</h4>
-						<a class="modal-trigger right btn-floating" href="#addCategoryModal" >
+						<h4 class="teal-text darken-3">Category</h4>
+						<a class="modal-trigger right btn-floating teal" href="#addCategoryModal" >
 							<i class="material-icons">add</i>
 						</a>
 					</li>
 					<h:panelGroup id="categories">
 						<ui:repeat var="cat" value="#{allCategories}">
 							<li class="collection-item">
-								<h:link outcome="/admin/blogs" value="#{cat.category}">
+								<h:link outcome="/admin/blogs" value="#{cat.category}" styleClass="teal-text text-darken-1">
 									<f:param name="cat" value="#{cat.id}" />
 								</h:link>
 							</li>				
 						</ui:repeat>
 					</h:panelGroup>
 				</ul>
-			</div>
-			
-			<div class="col l6 m8 s12">
-				<ui:insert name="content">
-				</ui:insert>
-			</div>
-			
-			<div class="col l3 hide-on-med-and-down">
+				
 				<!-- Blogs  -->
-				<div class="card blue-grey white-text">
+				<div class="card teal lighten-3 white-text">
 					<div class="card-content">
 						<i class="material-icons Fs36">description</i>
 						<h:outputText value="#{blogCount}" styleClass="Fs24 right" /><br/>
@@ -105,7 +98,7 @@
 				</div>
 
 				<!-- Comments  -->
-				<div class="card grey lighten-1 white-text">
+				<div class="card teal lighten-3 white-text">
 					<div class="card-content">
 						<i class="material-icons Fs36">chat</i>
 						<h:outputText value="#{commentCount}" styleClass="Fs24 right" /><br/>
@@ -117,7 +110,7 @@
 				</div>
 				
 				<!-- Users  -->
-				<div class="card teal white-text">
+				<div class="card teal lighten-3 white-text">
 					<div class="card-content">
 						<i class="material-icons Fs36">people</i>
 						<h:outputText value="#{userCont}" styleClass="Fs24 right" /><br/>
@@ -127,6 +120,16 @@
 						<h:link value="Show All" outcome="/admin/users" styleClass="pink-text text-darken-3" />
 					</div>
 				</div>
+				
+			</div>
+			
+			<div class="col l6 m8 s12">
+				<ui:insert name="content">
+				</ui:insert>
+			</div>
+			
+			<div class="col l3 hide-on-med-and-down">
+
 
 			</div>
 		</div>

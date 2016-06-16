@@ -11,37 +11,41 @@
 <composite:implementation>
 	<h:form>
 	<div class="card">
+		<div class="card-image waves-effect waves-block waves-light">
+			<h:graphicImage value="#{imageBaseUrl}#{empty cc.attrs.blog.image ? defaultCover : cc.attrs.blog.imageUrl}" />
+			<h:outputText value="#{cc.attrs.blog.title}" styleClass="card-title" />
+		</div>					
+
 		<div class="card-content">
-			<div class="row">
-				<div class="col l3 m3 center">
-					<h:outputText value="#{cc.attrs.blog.comments.size()}" styleClass="Fs60" /><br/>
-					<h:outputText value="#{cc.attrs.blog.category.category}" /><br/>
-					<h:outputText value="#{cc.attrs.blog.status}" styleClass="Fs10 grey-text" rendered="#{cc.attrs.isMyBlogs}" />
-					<h:link value="#{cc.attrs.blog.user.name}" outcome="/home" styleClass="Fs10 grey-text" 
-						rendered="#{not cc.attrs.isMyBlogs}">
-						<f:param name="user" value="#{cc.attrs.blog.user.loginId}"></f:param>
-					</h:link>
-				</div>
-				<div class="col l9 m9">
-					<h:commandLink actionListener="#{cc.attrs.deleteActionListener}" 
-						styleClass="btn-floating right">
-						<i class="material-icons">delete</i>
-						<f:ajax execute="@this" render="#{cc.attrs.deleteResultRenderer}"></f:ajax>
-					</h:commandLink>
-					<h5><h:outputText value="#{cc.attrs.blog.title}" /> </h5>
-					<h:outputText value="#{cc.attrs.blog.security.creation}" styleClass="Fs10 grey-text" >
-						<f:converter binding="#{commonDateTimeConverter}" />
-					</h:outputText>
-					<p>
-					<h:outputText value="#{cc.attrs.blog.body}" />
-					</p>
-					
-					<h:link styleClass="deep-purple-text Fs10" value="Read More" outcome="#{cc.attrs.detailsOutcome}">
-						<f:param name="id" value="#{cc.attrs.blog.id}"></f:param>
-					</h:link>
-					
-				</div>
-			</div>
+			<h:commandLink actionListener="#{cc.attrs.deleteActionListener}" 
+				styleClass="MarRight10 red-text left">
+				<i class="material-icons">delete</i>
+				<f:ajax execute="@this" render="#{cc.attrs.deleteResultRenderer}"></f:ajax>
+			</h:commandLink>
+			<span class="MarRight10 valign-wrapper right">
+				<i class="material-icons Fs16 valign MarRight05 cyan-text text-darken-4">chat</i>
+				<h:outputText value="#{cc.attrs.blog.comments.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
+			</span>		
+			<span class="MarRight10 valign-wrapper right">
+				<i class="material-icons Fs16 valign MarRight05 valign right">mood</i>
+				<h:outputText id="rateCount" value="#{cc.attrs.blog.rate.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
+			</span>	
+			<h:outputText value="#{cc.attrs.blog.category.category}" styleClass="cyan-text text-darken-4" />
+		</div>
+		<div class="divider" />
+
+		<div class="card-content">
+			<p class="teal-text text-darkern-1">
+			<h:outputText value="#{cc.attrs.blog.body}" />
+			</p>
+			<h:outputText value="#{cc.attrs.blog.security.creation}" styleClass="Fs10 teal-text" >
+				<f:converter binding="#{commonDateTimeConverter}" />
+			</h:outputText><br/>
+			
+			<h:link styleClass="teal-text text-darkern-3 Fs10" value="Read More" outcome="#{cc.attrs.detailsOutcome}">
+				<f:param name="id" value="#{cc.attrs.blog.id}"></f:param>
+			</h:link>
+			
 		</div>
 	</div>
 </h:form>

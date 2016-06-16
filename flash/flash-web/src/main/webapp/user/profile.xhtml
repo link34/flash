@@ -14,15 +14,15 @@
 				<div class="card-content">
 					<h:outputText value="#{userBean.user.name} (#{userBean.user.loginId})" styleClass="card-title" />
 					
-					<h:link styleClass="right btn-floating" outcome="/user/profileEdit">
+					<h:link styleClass="right btn-floating cyan" outcome="/user/profileEdit">
 						<i class="material-icons">edit</i>								
 					</h:link>
 											
 					<div class="divider" />
 					
 					<div class="row MarTop10">
-						<div class="col m6 center-align s12">
-							<h:graphicImage value="#{imageBaseUrl}#{empty userBean.user.image? defaultProfile : userBean.user.imageUrl}" styleClass="card-image responsive-img" />
+						<div class="col m6 center-align s12 card-image ">
+							<h:graphicImage value="#{imageBaseUrl}#{empty userBean.user.image? defaultProfile : userBean.user.imageUrl}" styleClass="responsive-img" />
 							<h:outputText value="#{userBean.user.status}" /><br/>
 							<h:outputText value="#{userBean.user.security.creation}" converter="#{commonDateTimeConverter}" /><br/>
 							<h:outputText value="#{userBean.user.email}" styleClass="grey-text"/>
@@ -30,7 +30,7 @@
 						<div class="col m6 s12">
 							
 							<!-- Blogs -->
-							<div class="card blue-grey darken-2 white-text">
+							<div class="card cyan white-text">
 								<div class="card-content">
 									<i class="material-icons Fs36">description</i>
 									<h:outputText value="#{userBean.user.blogsCount}" styleClass="Fs24 right" /><br/>
@@ -44,7 +44,7 @@
 							</div>
 
 							<!-- Comments  -->
-							<div class="card pink darken-2 white-text">
+							<div class="card cyan white-text">
 								<div class="card-content">
 									<i class="material-icons Fs36">chat</i>
 									<h:outputText value="#{userBean.user.commentCount}" styleClass="Fs24 right" /><br/>
