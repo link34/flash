@@ -1,0 +1,40 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Error | Flash Admin</title>
+	<h:outputStylesheet library="css" name="materialize.min.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="material-icon.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="common.css"></h:outputStylesheet>
+</h:head> 
+<body> 
+	
+	<div class="row container">
+	<div class="card col offset-l4 offset-m3 l4 m6 s12">
+		<div class="card-content center-align">
+			<span class="card-title">
+				Login Error
+			</span>
+			
+			<div class="row">
+				<div class="col m3 hide-on-small-and-down center-align">
+					<i class="material-icons medium MarTop20">error</i>
+				</div>
+				<div class="col s12 m8">
+					<p>Please check your login ID and Password.</p>
+					<a href="login.xhtml" class="btn MarTop20">Login Page</a>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+	</div>
+	
+	<h:outputScript name="jquery-2.2.2.min.js" library="js"></h:outputScript>	
+	<h:outputScript name="materialize.min.js" library="js"></h:outputScript>	
+
+</body> 
+</html>

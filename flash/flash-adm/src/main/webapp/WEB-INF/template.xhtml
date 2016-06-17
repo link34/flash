@@ -15,7 +15,7 @@
 	<h:outputScript name="jquery-2.2.2.min.js" library="js"></h:outputScript>	
 	<h:outputScript name="materialize.min.js" library="js"></h:outputScript>	
 
-	<h:form>
+	
 	<nav class="teal">
 		<div class="nav-wrapper container">
 			<h:link styleClass="brand-logo" value="Flash Admin" outcome="/admin/users"/>
@@ -37,9 +37,11 @@
 					</h:link>
 				</li>
 				<li>
-					<h:commandLink action="#{logoutBean.logout()}">
-						<i class="material-icons">exit_to_app</i>
-					</h:commandLink>
+					<h:form>
+						<h:commandLink action="#{logoutBean.logout()}">
+							<i class="material-icons">exit_to_app</i>
+						</h:commandLink>
+					</h:form>
 				</li>
 			</ul>
 			<ul id="mobile-menu" class="side-nav">
@@ -53,12 +55,13 @@
 					<h:link value="Users" outcome="/admin/users" />
 				</li>
 				<li>
+					<h:form>
 					<h:commandLink action="#{logoutBean.logout()}" value="Sign Out" />
+					</h:form>
 				</li>
 			</ul>
 		</div>
 	</nav>
-	</h:form>
 
 	<div class="container">
 		<div class="row MarTop10">
@@ -130,7 +133,7 @@
 					<ui:repeat var="tb" value="#{topRankingBlogs}">
 						<li class="collection-item avatar">
 							<h:graphicImage value="#{imageBaseUrl}#{empty tb.user.image? defaultProfile : tb.user.imageUrl}"  styleClass="circle"/>
-							<h:link value="#{tb.title}" outcome="/blog"
+							<h:link value="#{tb.title}" outcome="/admin/blog"
 								styleClass="teal-text text-darken-3 Fs12">
 								<f:param name="id" value="#{tb.id}"></f:param>
 							</h:link>	
