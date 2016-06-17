@@ -117,7 +117,6 @@ header#header h1 {
     line-height: 90px;
     font-weight: 700;
     text-transform: uppercase;
-	text-align: center;
 }
 
 header#header h1::after {
@@ -128,4 +127,8 @@ header#header h2 {
     font-size: 26px;
 }
 
+.profile-image {
+	width: 200px;
+	height: 200px;
+}
         

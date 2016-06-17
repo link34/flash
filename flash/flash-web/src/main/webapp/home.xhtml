@@ -11,14 +11,8 @@
 		</ui:define>
 		
 		<ui:define name="header">
-			<header id="header" class="cyan darken-2">
-				<h1 class="white-text text-lighten-4">
-					Flash
-				</h1>
-				<h2 class="yellow-text">Keep your memories in Flash</h2>
-			</header>
 		</ui:define>
-		
+
 		<ui:define name="content">
 			<ui:repeat var="blog" value="#{blogListBean.blogs}">
 				<flash:blogItem blog="#{blog}" rateActionListener="#{blogListBean.vote(blog, 'mode')}" />

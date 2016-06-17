@@ -131,4 +131,13 @@ public class BlogListBean implements Serializable{
 		this.keyword = keyword;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+
 }

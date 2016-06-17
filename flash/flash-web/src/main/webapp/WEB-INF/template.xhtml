@@ -102,7 +102,29 @@
 	</nav>
 	</div>
 	
-	<ui:insert name="header"></ui:insert>
+	<ui:insert name="header">
+		<header id="header" class="cyan darken-1">
+			<h:panelGroup rendered="#{empty loginUser}">
+				<h1 class="white-text text-lighten-4 center-align">
+					Flash
+				</h1>
+				<h2 class="yellow-text">Keep your memories in Flash</h2>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{not empty loginUser}">
+				<div class="row">
+					<div class="col m3">
+						<h:graphicImage value="#{imageBaseUrl}#{loginUser.imageUrl}" rendered="#{not empty loginUser.image}" styleClass="circle profile-image" />
+					</div>
+					<div class="col m9 left-align">
+						<h1 class="white-text text-lighten-4 left-align">
+							#{loginUser.name}
+						</h1>
+						<h2 class="yellow-text">Memories in Flash</h2>
+					</div>
+				</div>
+			</h:panelGroup>
+		</header>
+	</ui:insert>
 
 	<div class="container MarTop10">
 
@@ -181,14 +203,14 @@
 								<h:outputText value="#{tb.body}" styleClass="cyan-text Fs10 truncate" />
 							</p>
 							<div class="MarBot10" />
-							<div class="chip cyan lighten-5 Fs12">
+							<span class="MarRight10 cyan-text">
 								<i class="material-icons">mood</i>
 								#{tb.rate.size()}
-							</div>
-							<div class="chip cyan lighten-5">
+							</span>
+							<span class="cyan-text">
 								<i class="material-icons">chat</i>
 								#{tb.comments.size()}
-							</div>
+							</span>
 						</li>
 					</ui:repeat>
 				</ul>
