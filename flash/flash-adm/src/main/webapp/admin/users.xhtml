@@ -14,12 +14,12 @@
 			<h:form>
 			<div class="card">
 				<div class="row card-content">
-					<div class="col s3 input-field">
+					<div class="col s4 input-field">
 						<h:selectOneMenu value="#{userBean.status}">
 							<f:selectItems value="#{userBean.statusList}" var="sts" itemValue="#{sts}" itemLabel="#{sts}"></f:selectItems>
 						</h:selectOneMenu>
 					</div>
-					<div class="col s7 input-field">
+					<div class="col s6 input-field">
 						<h:inputText value="#{userBean.name}" />
 						<h:outputLabel value="User Name" />
 					</div>
@@ -38,25 +38,22 @@
 			<h:panelGroup >
 				<ui:repeat var="user" value="#{userBean.users}">
 					<div class="card">
-						<div class="card-content">
-							<h:outputText value="#{user.name} (#{user.loginId})" styleClass="card-title teal-text text-darken-2" />
+						<div class="card-content center-align">
+							<h:outputText value="#{user.name} (#{user.loginId})" styleClass="Fs20 teal-text text-darken-2 truncate" />
 							
-							<h:commandLink styleClass="right btn-floating teal" 
-								actionListener="#{userBean.switchStatus(user)}" >
-								<i class="material-icons">#{user.status eq 'Valid' ? 'lock' : 'lock_open' }</i>								
-								<f:ajax execute="@this" render="searchResult"></f:ajax>								
-							</h:commandLink>
-													
-							<div class="divider" />
+							<div class="divider MarTop10" />
 							
 							<div class="row MarTop10">
-								<div class="col l6 center-align">
-									<h:graphicImage value="#{imageBaseUrl}#{empty user.image? defaultProfile : user.imageUrl}" styleClass="card-image responsive-img" />
+								<div class="col l6 m12 s12 center-align">
+									<div class="card-image">
+										<h:graphicImage value="#{imageBaseUrl}#{empty user.image? defaultProfile : user.imageUrl}" />
+									</div>
+
 									<h:outputText value="#{user.status}" /><br/>
 									<h:outputText value="#{user.security.creation}" converter="#{commonDateTimeConverter}" /><br/>
 									<h:outputText value="#{user.email}" styleClass="grey-text"/>
 								</div>
-								<div class="col l6">
+								<div class="col l6 hide-on-med-and-down">
 									<!-- Blogs -->
 									<div class="card teal lighten-3 white-text">
 										<div class="card-content">
@@ -86,8 +83,16 @@
 									</div>
 								</div>
 							</div>
-							
-						</div>					
+
+						</div>	
+						
+						<div class="card-action center-align">
+							<h:commandLink
+								actionListener="#{userBean.switchStatus(user)}" >
+								#{user.status eq 'Valid' ? 'Lock' : 'Un Lock' }								
+								<f:ajax execute="@this" render="searchResult"></f:ajax>								
+							</h:commandLink>
+						</div>				
 					</div>				 
 				</ui:repeat>
 			</h:panelGroup>

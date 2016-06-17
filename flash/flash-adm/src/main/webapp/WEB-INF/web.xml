@@ -43,4 +43,9 @@
 			<role-name>Admin</role-name>
 		</auth-constraint>
 	</security-constraint>
+	
+	<context-param>
+		<param-name>flash.topblog.size</param-name>
+		<param-value>20</param-value>
+	</context-param>
 </web-app>

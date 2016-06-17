@@ -62,7 +62,7 @@
 
 	<div class="container">
 		<div class="row MarTop10">
-			<div class="col l3 m4 hide-on-small-and-down">
+			<div class="col l3 m4 hide-on-med-and-down">
 				<ul class="collection with-header card">
 					<li class="collection-header">
 						<h4 class="teal-text darken-3">Category</h4>
@@ -119,14 +119,37 @@
 				
 			</div>
 			
-			<div class="col l6 m8 s12">
+			<div class="col l6 m12 s12">
 				<ui:insert name="content">
 				</ui:insert>
 			</div>
 			
 			<div class="col l3 hide-on-med-and-down">
-
-
+				
+				<ul class="collection">
+					<ui:repeat var="tb" value="#{topRankingBlogs}">
+						<li class="collection-item avatar">
+							<h:graphicImage value="#{imageBaseUrl}#{empty tb.user.image? defaultProfile : tb.user.imageUrl}"  styleClass="circle"/>
+							<h:link value="#{tb.title}" outcome="/blog"
+								styleClass="teal-text text-darken-3 Fs12">
+								<f:param name="id" value="#{tb.id}"></f:param>
+							</h:link>	
+							<p>
+								<h:outputText value="#{tb.body}" styleClass="teal-text Fs10 truncate" />
+							</p>
+							<div class="MarBot10" />
+							<div class="chip teal lighten-5 Fs12">
+								<i class="material-icons">mood</i>
+								#{tb.rate.size()}
+							</div>
+							<div class="chip teal lighten-5">
+								<i class="material-icons">chat</i>
+								#{tb.comments.size()}
+							</div>
+						</li>
+					</ui:repeat>
+				</ul>
+					
 			</div>
 		</div>
 	</div>
