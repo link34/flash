@@ -13,6 +13,9 @@
 </h:head> 
 <body> 
 	
+	<h:outputScript name="jquery-2.2.2.min.js" library="js"></h:outputScript>
+	<h:outputScript name="materialize.min.js" library="js"></h:outputScript>
+
 	<h:form>
 	<ul id="dropdown1" class="dropdown-content conf-menu" >
 		<h:panelGroup rendered="#{empty loginUser}">
@@ -313,8 +316,6 @@
 		</div>
 	</h:form>
 	
-	<h:outputScript name="jquery-2.2.2.min.js" library="js"></h:outputScript>
-	<h:outputScript name="materialize.min.js" library="js"></h:outputScript>
 	
 	<script>
 		$(document).ready(function(){

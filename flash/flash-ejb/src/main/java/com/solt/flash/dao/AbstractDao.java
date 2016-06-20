@@ -15,6 +15,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
     private Class<T> type;
     
     private static final String SELECT = "select t from %s t ";
+    private static final String COUNT = "select count(t) from %s t ";
     
 	public AbstractDao(Class<T> type) {
 		super();
@@ -84,6 +85,62 @@ public abstract class AbstractDao<T> implements Dao<T> {
 				query.setParameter(key, params.get(key));
 			}
 		}
+		
+		return query.getResultList();
+	}
+	
+	@Override
+	public long selectCount(String where, Map<String, Object> params) {
+		String sql = String.format(COUNT, type.getSimpleName());
+		
+		if(null != where &&
+				null != params &&
+				!where.isEmpty() &&
+				params.size() > 0) {
+			sql = sql.concat("where ").concat(where);
+		}
+		
+		TypedQuery<Long> query = em.createQuery(sql, Long.class);
+		
+		if(null != where &&
+				null != params &&
+				!where.isEmpty() &&
+				params.size() > 0) {
+			for(String key : params.keySet()) {
+				query.setParameter(key, params.get(key));
+			}
+		}
+		return query.getSingleResult();
+	}
+	
+	@Override
+	public List<T> select(String where, Map<String, Object> params, String sortParam, int cntFrom, int offset) {
+		String sql = String.format(SELECT, type.getSimpleName());
+		
+		if(null != where &&
+				null != params &&
+				!where.isEmpty() &&
+				params.size() > 0) {
+			sql = sql.concat("where ").concat(where);
+		}
+		
+		if(null != sortParam) {
+			sql = sql.concat(sortParam);
+		}
+		
+		TypedQuery<T> query = em.createQuery(sql, type);
+		
+		if(null != where &&
+				null != params &&
+				!where.isEmpty() &&
+				params.size() > 0) {
+			for(String key : params.keySet()) {
+				query.setParameter(key, params.get(key));
+			}
+		}
+		
+		query.setFirstResult(cntFrom);
+		query.setMaxResults(offset);
 		
 		return query.getResultList();
 	}

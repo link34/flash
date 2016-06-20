@@ -20,6 +20,11 @@
 		<param-value>10</param-value>
 	</context-param>
 
+	<context-param>
+		<param-name>flash.bloglist.size</param-name>
+		<param-value>10</param-value>
+	</context-param>
+
 	<servlet-mapping>
 		<servlet-name>FacesServlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>

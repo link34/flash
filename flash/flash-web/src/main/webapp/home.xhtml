@@ -14,9 +14,25 @@
 		</ui:define>
 
 		<ui:define name="content">
-			<ui:repeat var="blog" value="#{blogListBean.blogs}">
-				<flash:blogItem blog="#{blog}" rateActionListener="#{blogListBean.vote(blog, 'mode')}" />
-			</ui:repeat>
+			<h:panelGroup id="resultList">
+				<ui:repeat var="blog" value="#{blogListBean.blogs}">
+					<flash:blogItem blog="#{blog}" rateActionListener="#{blogListBean.vote(blog, 'mode')}" />
+				</ui:repeat>
+			</h:panelGroup>
+			
+			<h:form id="scForm" style="display:none;">
+				<h:commandLink action="#{blogListBean.search()}" value="Load" id="loadLink">
+				</h:commandLink>
+				<script>
+					$(window).scroll(function() {
+						if($(window).scrollTop() == $(document).height() - $(window).height()) {
+							jsf.ajax.request('scForm:loadLink', null, {'javax.faces.behavior.event': 'action', 'execute' : '@form', 'render' : ':resultList'});
+						}
+					});
+	
+				</script>
+			</h:form>
+
 		</ui:define>
 	</ui:composition>
 </html>
