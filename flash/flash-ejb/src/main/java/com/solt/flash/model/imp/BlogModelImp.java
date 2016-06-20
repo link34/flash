@@ -47,91 +47,10 @@ public class BlogModelImp implements BlogModel {
 
 	@Override
 	public List<Blog> searchBlog(Map<SearchParam, Object> params) {
-		
-		StringBuffer sb = new StringBuffer();
-		Map<String, Object> searchParam = new HashMap<>();
-
-		// User
-		Object userValue = params.get(SearchParam.User);
-		if(null != userValue) {
-			sb.append("t.user = :user ");
-			searchParam.put("user", userValue);
-		}
-		
-		// Category
-		Object catValue = params.get(SearchParam.Category);
-		if(null != catValue) {
-			if(searchParam.size() > 0) {
-				sb.append("and ");
-			}
-			
-			sb.append("t.category = :cat ");
-			searchParam.put("cat", catValue);
-		}
-		
-		// DateFrom
-		Object fromValue = params.get(SearchParam.DateFrom);
-		if(null != fromValue) {
-			if(searchParam.size() > 0) {
-				sb.append("and ");
-			}
-			
-			sb.append("t.publishDate >= :fDate ");
-			searchParam.put("fDate", fromValue);
-		}
-		
-		// DateTo
-		Object toValue = params.get(SearchParam.DateTo);
-		if(null != toValue) {
-			if(searchParam.size() > 0) {
-				sb.append("and ");
-			}
-			
-			sb.append("t.publishDate <= :tDate ");
-			searchParam.put("tDate", toValue);
-		}
-		
-		Object statusValue = params.get(SearchParam.Status);
-		if(null != statusValue) {
-			if(searchParam.size() > 0) {
-				sb.append("and ");
-			}
-			
-			sb.append("t.status = :status ");
-			searchParam.put("status", statusValue);
-		}
-		
-		// Keyword
-		Object keywordValue = params.get(SearchParam.Keyword);
-		if(null != keywordValue && !keywordValue.toString().isEmpty()) {
-			if(searchParam.size() > 0) {
-				sb.append("and ");
-			}
-			
-			sb.append("t.title like :keyword ");
-			searchParam.put("keyword", "%" + keywordValue.toString() + "%");
-		}
-		
-		// Tag
-		Object tagValue = params.get(SearchParam.Tag);
-		if(null != tagValue && !tagValue.toString().isEmpty()) {
-			if(searchParam.size() > 0) {
-				sb.append("and ");
-			}
-			
-			sb.append(":tag MEMBER OF t.tags");
-			searchParam.put("tag", tagValue);
-		}
-		
-		// valid user
-		if(searchParam.size() > 0) {
-			sb.append("and ");
-		}
-		sb.append("t.user.status = :userStatus");
-		searchParam.put("userStatus", User.Status.Valid);
-
-        return blogDao.select(sb.toString(), searchParam, " order by t.security.creation desc");
+		SearchHelper helper = new SearchHelper(params);
+        return blogDao.select(helper.getSql(), helper.getParams(), " order by t.security.creation desc");
 	}
+	
 
 	@Override
 	public List<Comment> getUserComments(User user) {
@@ -149,6 +68,117 @@ public class BlogModelImp implements BlogModel {
 	@Override
 	public void saveComment(Comment comment) {
 		commentDao.update(comment);
+	}
+
+	@Override
+	public List<Blog> searchBlog(Map<SearchParam, Object> params, int start, int offset) {
+		SearchHelper helper = new SearchHelper(params);
+		return blogDao.select(helper.getSql(), helper.getParams(), " order by t.security.creation desc", start, offset);
+	}
+
+	@Override
+	public long searchBlogCount(Map<SearchParam, Object> params) {
+		SearchHelper helper = new SearchHelper(params);
+		return blogDao.selectCount(helper.getSql(), helper.getParams());
+	}
+	
+	class SearchHelper {
+		
+		private StringBuffer sb;
+		private Map<String, Object> searchParam;
+		
+		public SearchHelper(Map<SearchParam, Object> params) {
+			sb = new StringBuffer();
+			searchParam = new HashMap<>();
+			
+			// User
+			Object userValue = params.get(SearchParam.User);
+			if(null != userValue) {
+				sb.append("t.user = :user ");
+				searchParam.put("user", userValue);
+			}
+			
+			// Category
+			Object catValue = params.get(SearchParam.Category);
+			if(null != catValue) {
+				if(searchParam.size() > 0) {
+					sb.append("and ");
+				}
+				
+				sb.append("t.category = :cat ");
+				searchParam.put("cat", catValue);
+			}
+			
+			// DateFrom
+			Object fromValue = params.get(SearchParam.DateFrom);
+			if(null != fromValue) {
+				if(searchParam.size() > 0) {
+					sb.append("and ");
+				}
+				
+				sb.append("t.publishDate >= :fDate ");
+				searchParam.put("fDate", fromValue);
+			}
+			
+			// DateTo
+			Object toValue = params.get(SearchParam.DateTo);
+			if(null != toValue) {
+				if(searchParam.size() > 0) {
+					sb.append("and ");
+				}
+				
+				sb.append("t.publishDate <= :tDate ");
+				searchParam.put("tDate", toValue);
+			}
+			
+			Object statusValue = params.get(SearchParam.Status);
+			if(null != statusValue) {
+				if(searchParam.size() > 0) {
+					sb.append("and ");
+				}
+				
+				sb.append("t.status = :status ");
+				searchParam.put("status", statusValue);
+			}
+			
+			// Keyword
+			Object keywordValue = params.get(SearchParam.Keyword);
+			if(null != keywordValue && !keywordValue.toString().isEmpty()) {
+				if(searchParam.size() > 0) {
+					sb.append("and ");
+				}
+				
+				sb.append("t.title like :keyword ");
+				searchParam.put("keyword", "%" + keywordValue.toString() + "%");
+			}
+			
+			// Tag
+			Object tagValue = params.get(SearchParam.Tag);
+			if(null != tagValue && !tagValue.toString().isEmpty()) {
+				if(searchParam.size() > 0) {
+					sb.append("and ");
+				}
+				
+				sb.append(":tag MEMBER OF t.tags");
+				searchParam.put("tag", tagValue);
+			}
+			
+			// valid user
+			if(searchParam.size() > 0) {
+				sb.append("and ");
+			}
+			sb.append("t.user.status = :userStatus");
+			searchParam.put("userStatus", User.Status.Valid);			
+		}
+		
+		public String getSql() {
+			return sb.toString();
+		}
+		
+		public Map<String, Object> getParams() {
+			return this.searchParam;
+		}
+		
 	}
 
 }

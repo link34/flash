@@ -17,6 +17,9 @@ public interface BlogModel extends Serializable {
 
     public List<Blog> searchBlog(Map<SearchParam, Object> params);
 
+    public List<Blog> searchBlog(Map<SearchParam, Object> params, int start, int offset);
+    public long searchBlogCount(Map<SearchParam, Object> params);
+
     public void deleteBlog(Blog blog);
 
     public void createBlog(Blog blog);

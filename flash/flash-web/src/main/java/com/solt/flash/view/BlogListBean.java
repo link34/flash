@@ -1,6 +1,7 @@
 package com.solt.flash.view;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import com.solt.flash.entity.User;
 import com.solt.flash.interceptor.ErrorHandler;
 import com.solt.flash.model.BlogModel;
 import com.solt.flash.model.BlogModel.SearchParam;
+import com.solt.flash.producers.BlogListCount;
 import com.solt.flash.producers.LoginUser;
 import com.solt.flash.model.CategoryModel;
 import com.solt.flash.model.UserModel;
@@ -41,6 +43,12 @@ public class BlogListBean implements Serializable{
     @Inject
     private CategoryModel catModel;
     
+    @BlogListCount
+    @Inject
+    private int limit;
+    
+    private int start = 0;
+    
     @LoginUser
     @Inject
     private User loginUser;
@@ -48,6 +56,8 @@ public class BlogListBean implements Serializable{
     @PostConstruct
     private void init() {
     	try {
+    		
+    		blogs = new ArrayList<>();
         	
         	String catId = ParamsUtils.getRequestParam("cat");
         	if(null != catId) {
@@ -91,7 +101,18 @@ public class BlogListBean implements Serializable{
     	params.put(SearchParam.User, user);
     	params.put(SearchParam.Status, Status.Published);
     	
-    	blogs = model.searchBlog(params);
+    	// total count
+    	long total = model.searchBlogCount(params);
+    	
+    	// start count
+    	if(total > blogs.size()) {
+        	// search
+        	blogs.addAll(model.searchBlog(params, start, limit));
+
+        	// set next start count
+        	start = blogs.size() + 1;
+    	}
+    	
     }
     
     public String searchByKeyword() {

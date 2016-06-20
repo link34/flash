@@ -21,12 +21,13 @@
 			</h:panelGroup>
 			
 			<h:form id="scForm" style="display:none;">
-				<h:commandLink action="#{blogListBean.search()}" value="Load" id="loadLink">
+				<h:commandLink actionListener="#{blogListBean.search()}" value="Load" id="loadLink">
+					<f:ajax execute="@form" render=":resultList"></f:ajax>
 				</h:commandLink>
 				<script>
 					$(window).scroll(function() {
 						if($(window).scrollTop() == $(document).height() - $(window).height()) {
-							jsf.ajax.request('scForm:loadLink', null, {'javax.faces.behavior.event': 'action', 'execute' : '@form', 'render' : ':resultList'});
+							$('#scForm a').click();
 						}
 					});
 	
