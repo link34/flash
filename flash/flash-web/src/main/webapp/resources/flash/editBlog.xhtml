@@ -41,7 +41,8 @@
 			</div>
 			<div class="card-image responsive-image">
 				<h:graphicImage value="#{imageBaseUrl}#{empty cc.attrs.blog.image ? defaultCover : cc.attrs.blog.imageUrl}" 
-					onclick="clickImage();" /><br/>
+					onclick="clickImage();" styleClass="tooltipped" 
+					p:data-position="bottom" p:data-delay="50" p:data-tooltip="Upload Photo" /><br/>
 			</div>				
 			<div style="display:none;">
 				<h:inputFile value="#{cc.attrs.imageFile}" >
