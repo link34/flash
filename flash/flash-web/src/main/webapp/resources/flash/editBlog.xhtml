@@ -19,49 +19,54 @@
 	<composite:attribute name="uploadListener" method-signature="void method()" required="true" />
 </composite:interface>
 <composite:implementation>
-	<h:form enctype="multipart/form-data">
-		<div class="card">
-			<div class="card-content">
-				
-				<div class="row">
-					<div class="col l4 m6 s12">
-						<div class="input-field">
-							<h:selectOneMenu value="#{cc.attrs.blog.category}" >
-								<f:converter binding="#{categoryConverter}" />
-								<f:selectItems value="#{allCategory}" var="c" itemLabel="#{c.category}" itemValue="#{c}"/>
-							</h:selectOneMenu>
-							<h:outputLabel value="Category" />
-						</div>
-					</div>
-					<div class="col l8 m6 s12">
-						<div class="input-field">
-							<h:inputText value="#{cc.attrs.blog.title}" />
-							<h:outputLabel value="Memory" />
-						</div>
+	<div class="card">
+		<div class="card-content">
+			
+			<div class="row">
+				<div class="col l4 m6 s12">
+					<div class="input-field">
+						<h:selectOneMenu value="#{cc.attrs.blog.category}" >
+							<f:converter binding="#{categoryConverter}" />
+							<f:selectItems value="#{allCategory}" var="c" itemLabel="#{c.category}" itemValue="#{c}"/>
+						</h:selectOneMenu>
+						<h:outputLabel value="Category" />
 					</div>
 				</div>
-				<div class="card-image responsive-image">
-					<h:graphicImage value="#{imageBaseUrl}#{empty cc.attrs.blog.image ? defaultCover : cc.attrs.blog.imageUrl}" /><br/>
-				</div>				
-				<div class="input-field">
-					<h:inputFile value="#{cc.attrs.imageFile}" >
-						<f:ajax execute="@form" render="@all" listener="#{cc.attrs.uploadListener}"></f:ajax>
-					</h:inputFile>
-				</div>	
-
-				<div class="input-field">
-					<h:inputTextarea id="body" value="#{cc.attrs.blog.body}" styleClass="materialize-textarea" rows="10" />
-					<h:outputLabel value="Description" for="body" />
-				</div>	
-				
-				<div>
-					<h:selectBooleanCheckbox id="publish" value="#{cc.attrs.publish}" />
-					<h:outputLabel value="Publish" for="publish" styleClass="MarRight20 MarBot10" />
-					<h:commandLink action="#{cc.attrs.saveAction}" value="#{cc.attrs.actionName}" styleClass="btn MarRight10 cyan" />
-				</div>			
+				<div class="col l8 m6 s12">
+					<div class="input-field">
+						<h:inputText value="#{cc.attrs.blog.title}" />
+						<h:outputLabel value="Memory" />
+					</div>
+				</div>
 			</div>
+			<div class="card-image responsive-image">
+				<h:graphicImage value="#{imageBaseUrl}#{empty cc.attrs.blog.image ? defaultCover : cc.attrs.blog.imageUrl}" 
+					onclick="clickImage();" /><br/>
+			</div>				
+			<div style="display:none;">
+				<h:inputFile value="#{cc.attrs.imageFile}" >
+					<f:ajax execute="@form" render="@all" listener="#{cc.attrs.uploadListener}"></f:ajax>
+				</h:inputFile>
+			</div>	
+
+			<div class="input-field">
+				<h:inputTextarea id="body" value="#{cc.attrs.blog.body}" styleClass="materialize-textarea" rows="10" />
+				<h:outputLabel value="Description" for="body" />
+			</div>	
+			
+			<div>
+				<h:selectBooleanCheckbox id="publish" value="#{cc.attrs.publish}" />
+				<h:outputLabel value="Publish" for="publish" styleClass="MarRight20 MarBot10" />
+				<h:commandLink action="#{cc.attrs.saveAction}" value="#{cc.attrs.actionName}" styleClass="btn MarRight10 cyan" />
+			</div>			
 		</div>
-	</h:form>
+	</div>
+	
+	<script>
+	function clickImage() {
+		$("#blogForm input[type=file]").click();
+	}
+	</script>
 </composite:implementation>
 </body>
 </html>

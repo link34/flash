@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/passthrough"
-      xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 		<ui:define name="title">
@@ -11,7 +11,8 @@
 		</ui:define>
 		
 		<ui:define name="content">
-			<h:form enctype="multipart/form-data">
+
+			<h:form id="profileForm" enctype="multipart/form-data">
 			<div class="card">
 				<div class="card-content">
 					<span class="card-title">Edit User Profile</span>
@@ -21,7 +22,10 @@
 					
 					<div class="row">
 						<div class="col m4 center-align">
-							<h:graphicImage value="#{imageBaseUrl}#{empty userBean.user.image? defaultProfile : userBean.user.imageUrl}" styleClass="MarTop20 responsive-img card-image" id="profileImage" />
+							<h:graphicImage value="#{imageBaseUrl}#{empty userBean.user.image? defaultProfile : userBean.user.imageUrl}" 
+								styleClass="MarTop20 responsive-img card-image tooltipped" id="profileImage" 
+								p:data-position="bottom" p:data-delay="50" p:data-tooltip="Upload Photo"
+								onclick="clickImage()"/>
 							
 						</div>
 						<div class="col m8">
@@ -56,7 +60,7 @@
 								<h:outputLabel value="Greeting" />
 							</div>
 							
-							<h:inputFile styleClass="btn MarBot20 input-field" value="#{userBean.file}">
+							<h:inputFile style="display:none;" value="#{userBean.file}" >
 								<f:ajax execute="@form" render="@all" listener="#{userBean.uploadPhoto()}"></f:ajax>
 							</h:inputFile><br/>
 
@@ -69,6 +73,12 @@
 				</div>
 			</div>
 			</h:form>
+			
+			<script>
+			function clickImage() {
+				$("#profileForm input[type=file]").click();
+			}
+			</script>
 		</ui:define>
 	</ui:composition>
 </html>

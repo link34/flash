@@ -11,6 +11,7 @@
 		</ui:define>
 		
 		<ui:define name="content">
+		<h:form enctype="multipart/form-data" id="blogForm">
 			<flash:editBlog saveAction="#{blogBean.save()}" 
 				blog="#{blogBean.blog}"
 				imageFile="#{blogBean.file}"
@@ -18,6 +19,7 @@
 				title="Edit Memory"
 				actionName="Save Memory"
 				publish="#{blogBean.publish}" />
+		</h:form>		
 		</ui:define>
 	</ui:composition>
 </html>
