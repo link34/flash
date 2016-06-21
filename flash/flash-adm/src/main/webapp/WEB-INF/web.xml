@@ -48,6 +48,22 @@
 		<param-name>flash.topblog.size</param-name>
 		<param-value>20</param-value>
 	</context-param>
+
+	<context-param>
+		<param-name>flash.bloglist.size</param-name>
+		<param-value>2</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>flash.commentlist.size</param-name>
+		<param-value>2</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>flash.userlist.size</param-name>
+		<param-value>2</param-value>
+	</context-param>
+	
 	<context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>

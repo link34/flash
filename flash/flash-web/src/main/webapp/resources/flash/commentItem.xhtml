@@ -1,8 +1,14 @@
-<div xmlns:h="http://java.sun.com/jsf/html"
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:composite="http://java.sun.com/jsf/composite">
+<head>
+<title>Comment Item</title>
+</head>
+<body>
 <composite:interface>
 	<composite:attribute name="cmt" type="com.solt.flash.entity.Comment" required="true" />
 	<composite:attribute name="isMyComments" type="boolean" default="false" />
@@ -38,4 +44,5 @@
 	</div>
 	
 </composite:implementation>
-</div>
+</body>
+</html>

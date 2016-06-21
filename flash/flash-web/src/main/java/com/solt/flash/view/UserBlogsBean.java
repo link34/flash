@@ -1,6 +1,7 @@
 package com.solt.flash.view;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import com.solt.flash.entity.User;
 import com.solt.flash.interceptor.ErrorHandler;
 import com.solt.flash.model.BlogModel;
 import com.solt.flash.model.BlogModel.SearchParam;
+import com.solt.flash.producers.BlogListCount;
 import com.solt.flash.producers.LoginUser;
 
 @Named
@@ -32,14 +34,36 @@ public class UserBlogsBean implements Serializable {
 	@Inject
 	@LoginUser
 	private User loginUser;
+
+    @BlogListCount
+    @Inject
+    private int limit;
+    
+    private int start = 0;
 	
 	@ErrorHandler
 	@PostConstruct
 	private void init() {
+		blogs = new ArrayList<>();
+		search();
+	}
+	
+	public void search() {
 		Map<SearchParam, Object> params = new HashMap<>();
 		params.put(SearchParam.User, loginUser);
-		blogs = model.searchBlog(params);
-	}
+
+    	// total count
+    	long total = model.searchBlogCount(params);
+    	
+    	// start count
+    	if(total > blogs.size()) {
+        	// search
+        	blogs.addAll(model.searchBlog(params, start, limit));
+
+        	// set next start count
+        	start = blogs.size() + 1;
+    	}
+    }
 
     @ErrorHandler
     public void delete(Blog blog) {

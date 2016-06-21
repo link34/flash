@@ -1,6 +1,7 @@
 package com.solt.flash.adm.view;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.solt.flash.adm.common.CategoryProducer;
+import com.solt.flash.adm.common.ListCount;
+import com.solt.flash.adm.common.ListType;
 import com.solt.flash.adm.common.ParamsHelper;
 import com.solt.flash.entity.Blog;
 import com.solt.flash.entity.Category;
@@ -38,8 +41,17 @@ public class BlogBean implements Serializable{
 	@Inject
 	private UserModel userModel;
 	
+	@Inject
+	@ListCount(ListType.Blogs)
+	private int limit;
+	
+	private int start;
+	
 	@PostConstruct
 	private void init() {
+		
+		blogList = new ArrayList<>();
+		
 		// category id
 		String strCatId = ParamsHelper.getParam("cat");
 		// user id
@@ -62,8 +74,13 @@ public class BlogBean implements Serializable{
 		searchParams.put(SearchParam.Category, category);
 		searchParams.put(SearchParam.User, user);
 		searchParams.put(SearchParam.Keyword, keyword);
+
+		long total = model.searchBlogCount(searchParams);
 		
-		blogList = model.searchBlog(searchParams);
+		if(total > blogList.size()) {
+			blogList.addAll(model.searchBlog(searchParams, start, limit));
+			start = blogList.size() + 1;
+		}
 	}
 	
 	public void delete(Blog blog) {

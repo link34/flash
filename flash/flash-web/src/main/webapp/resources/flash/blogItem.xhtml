@@ -1,7 +1,14 @@
-<div xmlns:h="http://java.sun.com/jsf/html"
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:composite="http://java.sun.com/jsf/composite">
+<head>
+<title>Blog Item</title>
+</head>
+<body>
 <composite:interface>
 	<composite:attribute name="blog" type="com.solt.flash.entity.Blog" required="true"></composite:attribute>
 	<composite:attribute name="isMyBlogs" type="boolean" default="false"></composite:attribute>
@@ -74,4 +81,5 @@
 	</div>
 </h:form>
 </composite:implementation>
-</div>
+</body>
+</html>

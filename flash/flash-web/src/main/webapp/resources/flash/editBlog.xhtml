@@ -1,7 +1,14 @@
-<div xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:composite="http://java.sun.com/jsf/composite">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+<head>
+<title>Edit Blog Item</title>
+</head>
+<body>
 <composite:interface>
 	<composite:attribute name="title" type="java.lang.String" required="true" />
 	<composite:attribute name="blog" type="com.solt.flash.entity.Blog" required="true" />
@@ -56,4 +63,5 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 		</div>
 	</h:form>
 </composite:implementation>
-</div>
+</body>
+</html>
