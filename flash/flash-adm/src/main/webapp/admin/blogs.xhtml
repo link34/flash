@@ -20,8 +20,9 @@
 							<h:outputLabel value="Keyword" />
 						</div>
 						<div class="col s3">
-							<h:commandLink styleClass="btn-floating MarTop20" actionListener="#{blogBean.search()}">
+							<h:commandLink styleClass="btn-floating MarTop20" actionListener="#{blogBean.searchByKeyword()}">
 								<i class="material-icons">search</i>
+								<f:ajax execute="@form" render=":blogList"></f:ajax>
 							</h:commandLink>
 						</div>
 					</div>

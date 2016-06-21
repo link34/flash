@@ -47,8 +47,6 @@ public class BlogListBean implements Serializable{
     @Inject
     private int limit;
     
-    private int start = 0;
-    
     @LoginUser
     @Inject
     private User loginUser;
@@ -107,10 +105,7 @@ public class BlogListBean implements Serializable{
     	// start count
     	if(total > blogs.size()) {
         	// search
-        	blogs.addAll(model.searchBlog(params, start, limit));
-
-        	// set next start count
-        	start = blogs.size() + 1;
+        	blogs.addAll(model.searchBlog(params, blogs.size(), limit));
     	}
     	
     }

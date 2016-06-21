@@ -45,8 +45,6 @@ public class BlogBean implements Serializable{
 	@ListCount(ListType.Blogs)
 	private int limit;
 	
-	private int start;
-	
 	@PostConstruct
 	private void init() {
 		
@@ -68,6 +66,11 @@ public class BlogBean implements Serializable{
 		search();
 	}
 	
+	public void searchByKeyword() {
+		blogList.clear();
+		search();
+	}
+	
 	public void search() {
 		
 		Map<SearchParam, Object> searchParams = new HashMap<>();
@@ -78,8 +81,7 @@ public class BlogBean implements Serializable{
 		long total = model.searchBlogCount(searchParams);
 		
 		if(total > blogList.size()) {
-			blogList.addAll(model.searchBlog(searchParams, start, limit));
-			start = blogList.size() + 1;
+			blogList.addAll(model.searchBlog(searchParams, blogList.size(), limit));
 		}
 	}
 	

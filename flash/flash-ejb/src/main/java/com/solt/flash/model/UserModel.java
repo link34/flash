@@ -11,16 +11,13 @@ import com.solt.flash.entity.User.Status;
 @Local
 public interface UserModel extends Serializable {
 	
-	public User getUser(String loginId);
-
-    public void checkLoginId(String loginId);
-
-    public void createUser(User user);
-
-    public void editUser(User user);
-
-    public void changePass(String loginId, String oldPass, String newPass, String confPass);
-    
-    public List<User> find(String name, Status status);
+	User getUser(String loginId);
+    void checkLoginId(String loginId);
+    void createUser(User user);
+    void editUser(User user);
+    void changePass(String loginId, String oldPass, String newPass, String confPass);
+    List<User> find(String name, Status status);
+    List<User> find(String name, Status status, int start, int limit);
+    long findCount(String name, Status status);
 
 }

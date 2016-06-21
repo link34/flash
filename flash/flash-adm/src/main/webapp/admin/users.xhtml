@@ -24,7 +24,7 @@
 						<h:outputLabel value="User Name" />
 					</div>
 					<div class="col s2">
-						<h:commandLink styleClass="btn-floating MarTop20" actionListener="#{userBean.search()}">
+						<h:commandLink styleClass="btn-floating MarTop20" actionListener="#{userBean.formSearch()}">
 							<i class="material-icons">search</i>
 							<f:ajax execute="@form" render="searchResult"></f:ajax>
 						</h:commandLink>
@@ -98,6 +98,19 @@
 			</h:panelGroup>
 			</h:form>
 			
+			<h:form style="display:none;" id="scForm">
+				<h:commandLink actionListener="#{userBean.search()}" value="Next">
+					<f:ajax execute="@this" render=":searchResult"></f:ajax>
+				</h:commandLink>
+				
+				<script>
+					$(window).scroll(function() {
+						if($(window).scrollTop() == $(document).height() - $(window).height()) {
+							$('#scForm a').click();
+						}
+					});
+				</script>
+			</h:form>	
 			
 		</ui:define>
 	</ui:composition>

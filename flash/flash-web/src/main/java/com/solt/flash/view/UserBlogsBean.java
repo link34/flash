@@ -39,8 +39,6 @@ public class UserBlogsBean implements Serializable {
     @Inject
     private int limit;
     
-    private int start = 0;
-	
 	@ErrorHandler
 	@PostConstruct
 	private void init() {
@@ -58,10 +56,7 @@ public class UserBlogsBean implements Serializable {
     	// start count
     	if(total > blogs.size()) {
         	// search
-        	blogs.addAll(model.searchBlog(params, start, limit));
-
-        	// set next start count
-        	start = blogs.size() + 1;
+        	blogs.addAll(model.searchBlog(params, blogs.size(), limit));
     	}
     }
 

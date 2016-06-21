@@ -73,35 +73,72 @@ public class UserModelImp implements UserModel {
 
 	@Override
 	public List<User> find(String name, Status status) {
-		StringBuffer sb = new StringBuffer();
-		Map<String, Object> params = new HashMap<>();
-		if(null != name) {
-			sb.append("t.name like :name ");
-			params.put("name" ,name + "%");
-		}
 		
-		if(null != status) {
-			if(params.size() > 0) {
-				sb.append("and ");
-			}
-			sb.append("t.status = :status ");
-			params.put("status", status);
-		}
-		
-		if(params.size() > 0) {
-			sb.append("and ");
-		}
-		
-		sb.append("t.role = :role ");
-		params.put("role", Role.Member);
-		
-		List<User> users = userDao.select(sb.toString(), params);
+		QueryHelper helper = new QueryHelper(name, status);
+		List<User> users = userDao.select(helper.getWhere(), helper.getParams());
 		users.forEach(a -> {
 			a.getCommentCount();
 			a.getBlogsCount();
 		});
 		
 		return users;
+	}
+
+	@Override
+	public List<User> find(String name, Status status, int start, int limit) {
+		QueryHelper helper = new QueryHelper(name, status);
+		List<User> users = userDao.select(helper.getWhere(), helper.getParams(), null, start, limit);
+		users.forEach(a -> {
+			a.getCommentCount();
+			a.getBlogsCount();
+		});
+		
+		return users;
+	}
+
+	@Override
+	public long findCount(String name, Status status) {
+		QueryHelper helper = new QueryHelper(name, status);
+		return userDao.selectCount(helper.getWhere(), helper.getParams());
+	}
+	
+	class QueryHelper {
+		
+		private StringBuffer sb;
+		private Map<String, Object> params;
+		
+		QueryHelper(String name, Status status) {
+			sb = new StringBuffer();
+			params = new HashMap<>();
+			
+			if(null != name) {
+				sb.append("t.name like :name ");
+				params.put("name" ,name + "%");
+			}
+			
+			if(null != status) {
+				if(params.size() > 0) {
+					sb.append("and ");
+				}
+				sb.append("t.status = :status ");
+				params.put("status", status);
+			}
+			
+			if(params.size() > 0) {
+				sb.append("and ");
+			}
+			
+			sb.append("t.role = :role ");
+			params.put("role", Role.Member);
+		}
+		
+		String getWhere() {
+			return sb.toString();
+		}
+		
+		public Map<String, Object> getParams() {
+			return params;
+		}
 	}
 
 }
