@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:flash="http://java.sun.com/jsf/composite/flash">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 		<ui:define name="title">
@@ -15,17 +15,56 @@
 				<h4 class="cyan-text text-darken-3">No Result</h4>
 			</h:panelGroup>
 		
-			<h:form id="resultForm">
-				<h:panelGroup id="resultList" rendered="#{not empty blogListBean.blogs}">
-					<ui:repeat var="blog" value="#{blogListBean.blogs}">
-						<flash:blogItem blog="#{blog}" rateActionListener="#{blogListBean.vote(blog, 'mode')}" />
-					</ui:repeat>
-				</h:panelGroup>
+			<h:form id="listForm">
+				<ui:repeat var="blog" value="#{blogListBean.blogs}">
+
+				<div class="card">
+					<div class="card-image waves-effect waves-block waves-light">
+						<h:graphicImage value="#{imageBaseUrl}#{empty blog.image ? defaultCover : blog.imageUrl}" />
+						<h:outputText value="#{blog.title}" styleClass="card-title" />
+					</div>					
+			
+					<div class="action-bar">
+						<span class="MarRight10 valign-wrapper left">
+							<i class="material-icons Fs16 valign MarRight05 cyan-text text-darken-4">chat</i>
+							<h:outputText value="#{blog.comments.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
+						</span>		
+						<span class="MarRight10 valign-wrapper left">
+							<h:commandLink styleClass="cyan-text text-darken-4 #{empty loginUser ? 'hide' : ''}" 
+								actionListener="#{blogListBean.vote(blog, 'mood')}" >
+								<i class="material-icons Fs16 valign MarRight05 valign right">mood</i>
+								<f:ajax execute="@this" render="@form"></f:ajax>
+							</h:commandLink>
+							<h:panelGroup rendered="#{empty loginUser}">
+								<i class="material-icons Fs16 valign MarRight05 valign right">mood</i>
+							</h:panelGroup>	
+							<h:outputText id="rateCount" value="#{blog.rate.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
+						</span>	
+						<h:outputText value="#{blog.category.category}" styleClass="cyan-text text-darken-4 right" />
+						<br/>
+					</div>
+					<div class="divider" />
+					<div class="card-content">
+						<h:link styleClass="right cyan-text tooltipped" 
+							p:data-position="right" p:data-delay="50" p:data-tooltip="Details"					
+							outcome="/blog">
+							<i class="material-icons">subject</i>
+							<f:param name="id" value="#{blog.id}"></f:param>
+						</h:link>
+						<p class="Fs12 grey-text truncate"><h:outputText value="#{blog.body}" /></p>
+						<h:outputText value="#{blog.security.creation}" styleClass="Fs10 grey-text" >
+							<f:converter binding="#{commonDateTimeConverter}" />
+						</h:outputText><br/>
+						<h:outputText value="#{blog.user.name}" styleClass="cyan-text" />
+					</div>
+			
+				</div>
+				</ui:repeat>
 			</h:form>
 			
 			<h:form id="scForm" styleClass="hide" rendered="#{not empty blogListBean.blogs}">
 				<h:commandLink actionListener="#{blogListBean.search()}" value="Load" id="loadLink">
-					<f:ajax execute="@this" render=":resultForm:resultList"></f:ajax>
+					<f:ajax execute="@this" render=":listForm"></f:ajax>
 				</h:commandLink>
 				<script>
 					$(window).scroll(function() {
