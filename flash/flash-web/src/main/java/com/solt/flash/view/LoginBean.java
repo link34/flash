@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.solt.flash.common.ApplicationException;
 import com.solt.flash.common.ApplicationException.ErrorType;
 import com.solt.flash.entity.User;
+import com.solt.flash.entity.User.Status;
 import com.solt.flash.interceptor.ErrorHandler;
 import com.solt.flash.model.UserModel;
 
@@ -47,8 +48,15 @@ public class LoginBean {
 
     private void internalLogin(String loginId, String password) {
     	try {
-        	HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-			request.login(loginId, password);
+    		
+    		User u = userModel.getUser(loginId);
+    		if(u.getStatus().equals(Status.Valid)) {
+            	HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    			request.login(loginId, password);
+    		} else {
+    			throw new ApplicationException("You are rejected because you break the rules and regulation of this site.", ErrorType.Warning);
+    		}
+    		
 		} catch (ServletException e) {
 			throw new ApplicationException("Please check Login ID and Password!", ErrorType.Warning);
 		}

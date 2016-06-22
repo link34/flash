@@ -2,8 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:flash="http://java.sun.com/jsf/composite/flash">
+      xmlns:h="http://java.sun.com/jsf/html">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 		<ui:define name="title">
@@ -44,8 +43,28 @@
 								
 			<h:panelGroup id="comments">
 				<ui:repeat var="cmt" value="#{blogDetailsBean.blog.commentList}">
-					<flash:commentItem cmt="#{cmt}" 
-						deleteAction="#{blogDetailsBean.deleteComment(cmt)}" deleteResultRedrer="comments commentCount" />
+
+					<div class="card">
+						<div class="card-content row">
+							<h:form styleClass="col s2 m1 l1">
+								<h:commandLink styleClass="btn-floating left teal MarRight10" 
+									actionListener="#{commentBean.delete(cmt)}">
+									<i class="material-icons">delete</i>
+									<f:ajax execute="@this" render="@form"></f:ajax>
+								</h:commandLink>
+							</h:form>
+							<div class="col s10">
+								<p class="teal-text">
+									<h:outputText value="#{cmt.comment}" />
+								</p>
+								<h:outputText value="#{cmt.security.creation}" styleClass="grey-text Fs10" >
+									<f:converter binding="#{commonDateTimeConverter}" />
+								</h:outputText><br/>
+								<h:outputText value="#{cmt.user.name}" styleClass="left Fs10 grey-text" /><br/>
+							</div>
+						</div>
+					</div>
+					
 				</ui:repeat>
 			</h:panelGroup>
 		</ui:define>
