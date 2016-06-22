@@ -11,16 +11,16 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.solt.flash.adm.common.CategoryProducer;
 import com.solt.flash.adm.common.ListCount;
 import com.solt.flash.adm.common.ListType;
 import com.solt.flash.adm.common.ParamsHelper;
+import com.solt.flash.common.CategoryProducer;
 import com.solt.flash.entity.Blog;
 import com.solt.flash.entity.Category;
 import com.solt.flash.entity.User;
 import com.solt.flash.model.BlogModel;
-import com.solt.flash.model.UserModel;
 import com.solt.flash.model.BlogModel.SearchParam;
+import com.solt.flash.model.UserModel;
 
 @Named
 @ViewScoped

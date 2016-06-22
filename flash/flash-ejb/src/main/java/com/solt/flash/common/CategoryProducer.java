@@ -1,4 +1,4 @@
-package com.solt.flash.adm.common;
+package com.solt.flash.common;
 
 import java.util.List;
 
