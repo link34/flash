@@ -27,7 +27,7 @@
 					<div class="input-field">
 						<h:selectOneMenu value="#{cc.attrs.blog.category}" >
 							<f:converter binding="#{categoryConverter}" />
-							<f:selectItems value="#{allCategory}" var="c" itemLabel="#{c.category}" itemValue="#{c}"/>
+							<f:selectItems value="#{allCategories}" var="c" itemLabel="#{c.category}" itemValue="#{c}"/>
 						</h:selectOneMenu>
 						<h:outputLabel value="Category" />
 					</div>
