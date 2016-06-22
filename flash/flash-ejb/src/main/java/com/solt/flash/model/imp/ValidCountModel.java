@@ -6,6 +6,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import com.solt.flash.entity.User.Role;
 import com.solt.flash.entity.User.Status;
 import com.solt.flash.model.CountModel;
 
@@ -18,9 +19,10 @@ public class ValidCountModel implements CountModel {
 	@Produces
 	@Override
 	public int getUserCont() {
-		String sql = "select count(u) from User u where u.status = :status";
+		String sql = "select count(u) from User u where u.status = :status and u.role = :role";
 		TypedQuery<Long> q = em.createQuery(sql, Long.class);
 		q.setParameter("status", Status.Valid);
+		q.setParameter("role", Role.Member);
 		return q.getSingleResult().intValue();
 	}
 

@@ -19,7 +19,7 @@
 			
 			<h:form id="scForm" style="display:none;">
 				<h:commandLink actionListener="#{userBlogsBean.search()}" value="Load" id="loadLink">
-					<f:ajax execute="@form" render=":resultList"></f:ajax>
+					<f:ajax execute="@form" render=":resultList" ></f:ajax>
 				</h:commandLink>
 				<script>
 					$(window).scroll(function() {

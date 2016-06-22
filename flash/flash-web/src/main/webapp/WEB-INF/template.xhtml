@@ -131,7 +131,7 @@
 
 	<div class="container MarTop10">
 
-		<h:messages id="message" showDetail="true" showSummary="false" styleClass="card-panel purple-text yellow lighten-4" />
+		<h:messages id="message" showDetail="true" showSummary="false" styleClass="card-panel cyan-text text-darken-4 cyan lighten-4" />
 		
 		<div class="row">
 			<div class="col l3 hide-on-med-and-down">
@@ -223,8 +223,13 @@
 	
 	</div>
 	
-	<footer class="footer-copyright container center-align cyan-text">
-		Powered by Java Developer Class
+	<footer class="page-footer cyan darken-2">
+		<div class="container">
+		
+		</div>
+		<div class="footer-copyright center-align cyan darken-3">
+			Powered by Java Developer Class
+		</div>
 	</footer>
 	
 	<!-- Sign In Form -->
@@ -319,11 +324,11 @@
 	
 	<script>
 		$(document).ready(function(){
+			$('.tooltipped').tooltip({delay: 50});
 			$('.dropdown-button').dropdown();
 			$('.modal-trigger').leanModal();
 			$('select').material_select();
 			$('.button-collapse').sideNav();
-			$('.tooltipped').tooltip({delay: 50});
 			$('.datepicker').pickadate({
 				selectMonths: true, // Creates a dropdown to control month
 				selectYears: 50 // Creates a dropdown of 15 years to control year

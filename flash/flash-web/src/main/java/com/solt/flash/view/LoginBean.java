@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import com.solt.flash.common.ApplicationException;
+import com.solt.flash.common.ApplicationException.ErrorType;
 import com.solt.flash.entity.User;
 import com.solt.flash.interceptor.ErrorHandler;
 import com.solt.flash.model.UserModel;
@@ -30,20 +31,16 @@ public class LoginBean {
     @ErrorHandler
     public String signUp() {
     	
-    	try {
-        	userModel.checkLoginId(loginId);
-        	
-        	User user = new User();
-        	user.setName(name);
-        	user.setLoginId(loginId);
-        	user.setPassword(password);
-        	user.getSecurity().setCreateUser(user.getLoginId());
-        	user.getSecurity().setModUser(user.getLoginId());
-        	userModel.createUser(user);
-        	internalLogin(loginId, password);
-		} catch (Exception e) {
-			throw new ApplicationException(e);
-		}
+    	userModel.checkLoginId(loginId);
+    	
+    	User user = new User();
+    	user.setName(name);
+    	user.setLoginId(loginId);
+    	user.setPassword(password);
+    	user.getSecurity().setCreateUser(user.getLoginId());
+    	user.getSecurity().setModUser(user.getLoginId());
+    	userModel.createUser(user);
+    	internalLogin(loginId, password);
     	
     	return "/home?faces-redirect=true";
     }
@@ -53,7 +50,7 @@ public class LoginBean {
         	HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 			request.login(loginId, password);
 		} catch (ServletException e) {
-			throw new ApplicationException(e);
+			throw new ApplicationException("Please check Login ID and Password!", ErrorType.Warning);
 		}
     }
 

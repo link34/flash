@@ -1,8 +1,9 @@
 <!DOCTYPE html> 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html"> 
 
 <h:head>
 	<title><ui:insert name="title"></ui:insert> | Flash Admin</title>
@@ -22,23 +23,27 @@
 			<a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
 			<ul class="right hide-on-med-and-down">
 				<li>
-					<h:link outcome="/admin/blogs">
+					<h:link outcome="/admin/blogs" styleClass="tooltipped"
+						p:data-position="right" p:data-delay="50" p:data-tooltip="Memories" >
 						<i class="material-icons">description</i>
 					</h:link>
 				</li>
 				<li>
-					<h:link outcome="/admin/comments">
+					<h:link outcome="/admin/comments" styleClass="tooltipped"
+						p:data-position="right" p:data-delay="50" p:data-tooltip="Comments" >
 						<i class="material-icons">chat</i>
 					</h:link>
 				</li>
 				<li>
-					<h:link outcome="/admin/users">
+					<h:link outcome="/admin/users" styleClass="tooltipped"
+						p:data-position="right" p:data-delay="50" p:data-tooltip="Users" >
 						<i class="material-icons">people</i>
 					</h:link>
 				</li>
 				<li>
 					<h:form>
-						<h:commandLink action="#{logoutBean.logout()}">
+						<h:commandLink action="#{logoutBean.logout()}" styleClass="tooltipped"
+						p:data-position="right" p:data-delay="50" p:data-tooltip="Logout" >
 							<i class="material-icons">exit_to_app</i>
 						</h:commandLink>
 					</h:form>
@@ -46,7 +51,7 @@
 			</ul>
 			<ul id="mobile-menu" class="side-nav">
 				<li>
-					<h:link value="Blogs" outcome="/admin/blogs"/>
+					<h:link value="Memories" outcome="/admin/blogs"/>
 				</li>
 				<li>
 					<h:link value="Comments" outcome="/admin/comments" />
@@ -141,14 +146,14 @@
 								<h:outputText value="#{tb.body}" styleClass="teal-text Fs10 truncate" />
 							</p>
 							<div class="MarBot10" />
-							<div class="badge teal lighten-5 Fs12">
+							<span class="teal-text text-darkern-2 Fs12 MarRight10">
 								<i class="material-icons">mood</i>
 								#{tb.rate.size()}
-							</div>
-							<div class="badge teal lighten-5">
+							</span>
+							<span class="teal-text text-darkern-2 Fs12 MarRight10">
 								<i class="material-icons">chat</i>
 								#{tb.comments.size()}
-							</div>
+							</span>
 						</li>
 					</ui:repeat>
 				</ul>
@@ -186,6 +191,7 @@
 			$(".button-collapse").sideNav();
 			$('.modal-trigger').leanModal();
 			$('select').material_select();
+			$('.tooltipped').tooltip({delay: 50});
 		});
 	</script>
 </body> 

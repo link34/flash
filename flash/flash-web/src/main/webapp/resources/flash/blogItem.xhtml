@@ -42,23 +42,27 @@
 			<h:outputText value="#{cc.attrs.blog.category.category}" styleClass="cyan-text text-darken-4" />
 			<h:panelGroup rendered="#{cc.attrs.isMyBlogs}" styleClass="right">
 				<h:commandLink actionListener="#{userBlogsBean.publish(blog)}" 
-					styleClass="MarRight10" 
+					styleClass="MarRight10 tooltipped" 
+					p:data-position="down" p:data-delay="50" p:data-tooltip="Publish"					
 					rendered="#{cc.attrs.blog.status eq 'Edit'}">
 					<i class="material-icons cyan-text text-darken4 right">play_arrow</i>
 					<f:ajax execute="@this" render="@form" ></f:ajax>
 				</h:commandLink>
 				<h:commandLink actionListener="#{userBlogsBean.unPublish(blog)}"
-					styleClass="MarRight10" 
+					styleClass="MarRight10 tooltipped" 
+					p:data-position="down" p:data-delay="50" p:data-tooltip="Un Publish"					
 					rendered="#{cc.attrs.blog.status eq 'Published'}">
 					<i class="material-icons cyan-text text-darken4">stop</i>
 					<f:ajax execute="@this" render="@form" ></f:ajax>
 				</h:commandLink>
 				<h:commandLink actionListener="#{userBlogsBean.delete(blog)}" 
-					styleClass="MarRight10">
+					p:data-position="down" p:data-delay="50" p:data-tooltip="Delete"					
+					styleClass="MarRight10 tooltipped">
 					<i class="material-icons cyan-text text-darken4">delete</i>
 					<f:ajax execute="@this" render="@all"></f:ajax>
 				</h:commandLink>
-				<h:link styleClass="MarRight10"
+				<h:link styleClass="MarRight10 tooltipped"
+					p:data-position="down" p:data-delay="50" p:data-tooltip="Edit"					
 					 outcome="/user/editBlog">
 					<i class="material-icons cyan-text text-darken4">edit</i>
 					<f:param name="id" value="#{cc.attrs.blog.id}"></f:param>
@@ -67,7 +71,9 @@
 		</div>
 		<div class="divider" />
 		<div class="card-content">
-			<h:link styleClass="right cyan-text" outcome="/blog">
+			<h:link styleClass="right cyan-text tooltipped" 
+				p:data-position="right" p:data-delay="50" p:data-tooltip="Details"					
+				outcome="/blog">
 				<i class="material-icons">subject</i>
 				<f:param name="id" value="#{cc.attrs.blog.id}"></f:param>
 			</h:link>
