@@ -87,7 +87,7 @@ public class BlogBean implements Serializable{
 	
 	public void delete(Blog blog) {
 		model.deleteBlog(blog);
-		search();
+		blogList.remove(blog);
 	}
 
 	public String getKeyword() {

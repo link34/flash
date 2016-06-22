@@ -18,7 +18,9 @@
 
 			<h:panelGroup rendered="#{not empty userBlogsBean.blogs}" id="resultList">
 				<ui:repeat var="blog" value="#{userBlogsBean.blogs}">
-					<flash:blogItem blog="#{blog}" isMyBlogs="true" rateActionListener="#{userBlogsBean.vote(blog, 'mode')}" />
+					<h:form>
+						<flash:blogItem blog="#{blog}" isMyBlogs="true" rateActionListener="#{userBlogsBean.vote(blog, 'mode')}" />
+					</h:form>
 				</ui:repeat>
 			</h:panelGroup>
 			

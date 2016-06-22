@@ -57,7 +57,7 @@ public class CommentBean implements Serializable {
 	
 	public void delete(Comment comment) {
 		model.deleteComment(comment);
-		search();
+		comments.remove(comment);
 	}
 	
 	public List<Comment> getComments() {

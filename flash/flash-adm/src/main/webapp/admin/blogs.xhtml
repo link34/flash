@@ -2,8 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:flash="http://java.sun.com/jsf/composite/flash">
+      xmlns:h="http://java.sun.com/jsf/html">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 		<ui:define name="title">
@@ -34,12 +33,50 @@
 				<h4 class="cyan-text text-darken-3">No Result</h4>
 			</h:panelGroup>
 
-			<h:panelGroup id="blogList" rendered="#{not empty blogBean.blogList}">
+			<h:form id="blogList">
 				<ui:repeat var="blog" value="#{blogBean.blogList}">
-					<flash:blogItem blog="#{blog}" deleteActionListener="#{blogBean.delete(blog)}" 
-						deleteResultRenderer="blogList" detailsOutcome="/admin/blog" />
+
+					<div class="card">
+						<div class="card-image waves-effect waves-block waves-light">
+							<h:graphicImage value="#{imageBaseUrl}#{empty blog.image ? defaultCover : blog.imageUrl}" />
+							<h:outputText value="#{blog.title}" styleClass="card-title" />
+						</div>					
+				
+						<div class="card-content">
+							<h:commandLink actionListener="#{blogBean.delete(blog)}" 
+								styleClass="MarRight10 red-text left">
+								<i class="material-icons">delete</i>
+								<f:ajax execute="@this" render="@form"></f:ajax>
+							</h:commandLink>
+							<span class="MarRight10 valign-wrapper right">
+								<i class="material-icons Fs16 valign MarRight05 cyan-text text-darken-4">chat</i>
+								<h:outputText value="#{blog.comments.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
+							</span>		
+							<span class="MarRight10 valign-wrapper right">
+								<i class="material-icons Fs16 valign MarRight05 valign right">mood</i>
+								<h:outputText id="rateCount" value="#{blog.rate.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
+							</span>	
+							<h:outputText value="#{blog.category.category}" styleClass="cyan-text text-darken-4" />
+						</div>
+						<div class="divider" />
+				
+						<div class="card-content">
+							<p class="teal-text text-darkern-1">
+							<h:outputText value="#{blog.body}" />
+							</p>
+							<h:outputText value="#{blog.security.creation}" styleClass="Fs10 teal-text" >
+								<f:converter binding="#{commonDateTimeConverter}" />
+							</h:outputText><br/>
+							
+							<h:link styleClass="teal-text text-darkern-3 Fs10" value="Read More" outcome="/admin/blog">
+								<f:param name="id" value="#{blog.id}"></f:param>
+							</h:link>
+							
+						</div>
+					</div>
+				
 				</ui:repeat>
-			</h:panelGroup>
+			</h:form>
 			
 			<h:form id="scForm" styleClass="hide" rendered="#{not empty blogBean.blogList}">
 				<h:commandLink actionListener="#{blogBean.search()}" value="Next">

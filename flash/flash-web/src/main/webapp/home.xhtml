@@ -15,15 +15,17 @@
 				<h4 class="cyan-text text-darken-3">No Result</h4>
 			</h:panelGroup>
 		
-			<h:panelGroup id="resultList" rendered="#{not empty blogListBean.blogs}">
-				<ui:repeat var="blog" value="#{blogListBean.blogs}">
-					<flash:blogItem blog="#{blog}" rateActionListener="#{blogListBean.vote(blog, 'mode')}" />
-				</ui:repeat>
-			</h:panelGroup>
+			<h:form id="resultForm">
+				<h:panelGroup id="resultList" rendered="#{not empty blogListBean.blogs}">
+					<ui:repeat var="blog" value="#{blogListBean.blogs}">
+						<flash:blogItem blog="#{blog}" rateActionListener="#{blogListBean.vote(blog, 'mode')}" />
+					</ui:repeat>
+				</h:panelGroup>
+			</h:form>
 			
 			<h:form id="scForm" styleClass="hide" rendered="#{not empty blogListBean.blogs}">
 				<h:commandLink actionListener="#{blogListBean.search()}" value="Load" id="loadLink">
-					<f:ajax execute="@form" render=":resultList"></f:ajax>
+					<f:ajax execute="@this" render=":resultForm:resultList"></f:ajax>
 				</h:commandLink>
 				<script>
 					$(window).scroll(function() {

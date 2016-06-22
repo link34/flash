@@ -15,7 +15,7 @@
 	<composite:attribute name="rateActionListener" method-signature="void method(com.solt.flash.entity.Blog, java.lang.String)" required="true"></composite:attribute>
 </composite:interface>
 <composite:implementation>
-	<h:form>
+<h:form>
 	<div class="card">
 		<div class="card-image waves-effect waves-block waves-light">
 			<h:graphicImage value="#{imageBaseUrl}#{empty cc.attrs.blog.image ? defaultCover : cc.attrs.blog.imageUrl}" />
@@ -29,10 +29,9 @@
 			</span>		
 			<span class="MarRight10 valign-wrapper left">
 				<h:commandLink styleClass="cyan-text text-darken-4" 
-					actionListener="#{cc.attrs.rateActionListener}"
 					rendered="#{not empty loginUser}">
 					<i class="material-icons Fs16 valign MarRight05 valign right">mood</i>
-					<f:ajax execute="@this" render="rateCount"></f:ajax>
+					<f:ajax execute="@this" render="rateCount" listener="#{cc.attrs.rateActionListener}"></f:ajax>
 				</h:commandLink>
 				<h:panelGroup rendered="#{empty loginUser}">
 					<i class="material-icons Fs16 valign MarRight05 valign right">mood</i>

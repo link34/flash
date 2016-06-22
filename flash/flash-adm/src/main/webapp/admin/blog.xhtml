@@ -11,26 +11,37 @@
 		</ui:define>
 		
 		<ui:define name="content">
+
 			<div class="card">
-				<div class="row card-content">
-					<div class="col l3 center-align">
-						<h:outputText id="commentCount" value="#{blogDetailsBean.blog.commentList.size()}" styleClass="Fs60" /> <br/>
-						<h:outputText value="#{blogDetailsBean.blog.category.category}" /> <br/>
-						<h:outputText value="#{blogDetailsBean.blog.user.name}" styleClass="Fs10 grey-text" /> <br/>
-					</div>
-					<div class="col l9">
-						<h:outputText value="#{blogDetailsBean.blog.title}" styleClass="card-title" /> <br/>
-						<h:outputText value="#{blogDetailsBean.blog.publishDate}" styleClass="grey-text Fs10">
-							<f:converter binding="#{commonDateTimeConverter}"></f:converter>
-						</h:outputText> <br/>
-						<p>
-						<h:outputText value="#{blogDetailsBean.blog.body}"  />
-						</p>	
-						
-					</div>
+				<div class="card-image waves-effect waves-block waves-light">
+					<h:graphicImage value="#{imageBaseUrl}#{empty blogDetailsBean.blog.image ? defaultCover : blogDetailsBean.blog.imageUrl}" />
+					<h:outputText value="#{blogDetailsBean.blog.title}" styleClass="card-title" />
+				</div>					
+		
+				<div class="card-content">
+					<span class="MarRight10 valign-wrapper right">
+						<i class="material-icons Fs16 valign MarRight05 cyan-text text-darken-4">chat</i>
+						<h:outputText value="#{blogDetailsBean.blog.comments.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
+					</span>		
+					<span class="MarRight10 valign-wrapper right">
+						<i class="material-icons Fs16 valign MarRight05 valign right">mood</i>
+						<h:outputText id="rateCount" value="#{blogDetailsBean.blog.rate.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
+					</span>	
+					<h:outputText value="#{blogDetailsBean.blog.category.category}" styleClass="cyan-text text-darken-4" />
+				</div>
+				<div class="divider" />
+		
+				<div class="card-content">
+					<p class="teal-text text-darkern-1">
+					<h:outputText value="#{blogDetailsBean.blog.body}" />
+					</p>
+					<h:outputText value="#{blogDetailsBean.blog.security.creation}" styleClass="Fs10 teal-text" >
+						<f:converter binding="#{commonDateTimeConverter}" />
+					</h:outputText><br/>
+					
 				</div>
 			</div>
-			
+								
 			<h:panelGroup id="comments">
 				<ui:repeat var="cmt" value="#{blogDetailsBean.blog.commentList}">
 					<flash:commentItem cmt="#{cmt}" 
