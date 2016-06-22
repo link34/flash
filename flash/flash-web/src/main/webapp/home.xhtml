@@ -11,13 +11,17 @@
 		</ui:define>
 		
 		<ui:define name="content">
-			<h:panelGroup id="resultList">
+			<h:panelGroup rendered="#{empty blogListBean.blogs}" styleClass="center-align">
+				<h4 class="cyan-text text-darken-3">No Result</h4>
+			</h:panelGroup>
+		
+			<h:panelGroup id="resultList" rendered="#{not empty blogListBean.blogs}">
 				<ui:repeat var="blog" value="#{blogListBean.blogs}">
 					<flash:blogItem blog="#{blog}" rateActionListener="#{blogListBean.vote(blog, 'mode')}" />
 				</ui:repeat>
 			</h:panelGroup>
 			
-			<h:form id="scForm" style="display:none;">
+			<h:form id="scForm" styleClass="hide" rendered="#{not empty blogListBean.blogs}">
 				<h:commandLink actionListener="#{blogListBean.search()}" value="Load" id="loadLink">
 					<f:ajax execute="@form" render=":resultList"></f:ajax>
 				</h:commandLink>

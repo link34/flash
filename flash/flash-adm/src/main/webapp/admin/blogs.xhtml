@@ -30,14 +30,18 @@
 			</div>
 			
 			<!-- Search Result  -->
-			<h:panelGroup id="blogList">
+			<h:panelGroup rendered="#{empty blogBean.blogList}" styleClass="center-align">
+				<h4 class="cyan-text text-darken-3">No Result</h4>
+			</h:panelGroup>
+
+			<h:panelGroup id="blogList" rendered="#{not empty blogBean.blogList}">
 				<ui:repeat var="blog" value="#{blogBean.blogList}">
 					<flash:blogItem blog="#{blog}" deleteActionListener="#{blogBean.delete(blog)}" 
 						deleteResultRenderer="blogList" detailsOutcome="/admin/blog" />
 				</ui:repeat>
 			</h:panelGroup>
 			
-			<h:form id="scForm" style="display:none;">
+			<h:form id="scForm" styleClass="hide" rendered="#{not empty blogBean.blogList}">
 				<h:commandLink actionListener="#{blogBean.search()}" value="Next">
 					<f:ajax execute="@this" render=":blogList"></f:ajax>
 				</h:commandLink>

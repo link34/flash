@@ -29,13 +29,17 @@
 			</div>
 			</h:form>
 			
-			<h:panelGroup id="searchResult">
+			<h:panelGroup rendered="#{empty commentBean.comments}" styleClass="center-align">
+				<h4 class="cyan-text text-darken-3">No Result</h4>
+			</h:panelGroup>
+
+			<h:panelGroup id="searchResult" rendered="#{not empty commentBean.comments}">
 				<ui:repeat var="cmt" value="#{commentBean.comments}">
 					<flash:commentItem deleteResultRedrer="searchResult" cmt="#{cmt}" deleteAction="#{commentBean.delete(cmt)}" />
 				</ui:repeat>
 			</h:panelGroup>	
 			
-			<h:form style="display:none;" id="scForm">
+			<h:form styleClass="hide" id="scForm"  rendered="#{not empty commentBean.comments}">
 				<h:commandLink actionListener="#{commentBean.search()}" value="Next">
 					<f:ajax execute="@this" render=":searchResult"></f:ajax>
 				</h:commandLink>

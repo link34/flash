@@ -34,7 +34,7 @@
 			</h:form>
 			
 			<!-- Search Result -->
-			<h:form id="searchResult">
+			<h:form id="searchResult" rendered="#{not empty userBean.users}">
 			<h:panelGroup >
 				<ui:repeat var="user" value="#{userBean.users}">
 					<div class="card">
@@ -99,7 +99,11 @@
 			</h:panelGroup>
 			</h:form>
 			
-			<h:form style="display:none;" id="scForm">
+			<h:panelGroup rendered="#{empty userBean.users}" styleClass="center-align">
+				<h4 class="cyan-text text-darken-3">No Result</h4>
+			</h:panelGroup>
+
+			<h:form styleClass="hide" id="scForm" rendered="#{not empty userBean.users}">
 				<h:commandLink actionListener="#{userBean.search()}" value="Next">
 					<f:ajax execute="@this" render=":searchResult"></f:ajax>
 				</h:commandLink>
