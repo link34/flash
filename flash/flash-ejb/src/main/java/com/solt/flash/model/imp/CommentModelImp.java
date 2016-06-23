@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import com.solt.flash.dao.imp.CommentDao;
 import com.solt.flash.entity.Comment;
+import com.solt.flash.entity.User;
 import com.solt.flash.model.CommentModel;
 
 @Local
@@ -54,16 +55,22 @@ public class CommentModelImp implements CommentModel {
 			where = new StringBuffer();
 			params = new HashMap<>();
 			
+			where.append("t.user.status = :cmtUsrSts ");
+			params.put("cmtUsrSts", User.Status.Valid);
+
+			where.append("and ");
+			where.append("t.blog.user.status = :blgUsrSts ");
+			params.put("blgUsrSts", User.Status.Valid);
+
 			if(null != keyword && !keyword.isEmpty()) {
+				where.append("and ");
 				where.append("t.comment like :comment ");
 				params.put("comment", "%" + keyword + "%");
 			}
 			
 			if(null != userId && !userId.isEmpty()) {
-				if(params.size() > 0) {
-					where.append("and ");
-				}
-				where.append("t.user.loginId = :userId");
+				where.append("and ");
+				where.append("t.user.loginId = :userId ");
 				params.put("userId", userId);
 			}
 		}
@@ -75,6 +82,11 @@ public class CommentModelImp implements CommentModel {
 		public Map<String, Object> getParams() {
 			return params;
 		}
+	}
+
+	@Override
+	public void saveComment(Comment comment) {
+		dao.update(comment);
 	}
 
 }

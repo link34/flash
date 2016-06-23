@@ -12,7 +12,7 @@ import javax.inject.Named;
 import com.solt.flash.entity.Comment;
 import com.solt.flash.entity.User;
 import com.solt.flash.interceptor.ErrorHandler;
-import com.solt.flash.model.BlogModel;
+import com.solt.flash.model.CommentModel;
 import com.solt.flash.producers.LoginUser;
 
 @Named
@@ -24,7 +24,7 @@ public class UserCommentsBean implements Serializable {
 	private List<Comment> comments;
 
     @Inject
-    private BlogModel model;
+    private CommentModel model;
     @Inject
     @LoginUser
     private User loginUser;
@@ -34,7 +34,7 @@ public class UserCommentsBean implements Serializable {
     
     @PostConstruct
     private void init() {
-    	comments = model.getUserComments(loginUser);
+    	comments = model.searchComments(null, loginUser.getLoginId());
     }
 
     @ErrorHandler
@@ -54,8 +54,7 @@ public class UserCommentsBean implements Serializable {
 
     @ErrorHandler
     public String delete(Comment comment) {
-    	comment.getBlog().removeComment(comment);
-    	model.saveBlog(comment.getBlog());
+    	model.deleteComment(comment);
     	return "/user/comments?faces-redirect=true";
     }
     

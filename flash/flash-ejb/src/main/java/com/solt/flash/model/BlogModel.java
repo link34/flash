@@ -7,8 +7,6 @@ import java.util.Map;
 import javax.ejb.Local;
 
 import com.solt.flash.entity.Blog;
-import com.solt.flash.entity.Comment;
-import com.solt.flash.entity.User;
 
 @Local
 public interface BlogModel extends Serializable {
@@ -26,10 +24,6 @@ public interface BlogModel extends Serializable {
 
     public void saveBlog(Blog blog);
     
-    List<Comment> getUserComments(User user);
-    
-    void saveComment(Comment comment);
-
     public enum SearchParam {
         Category,
         Tag,

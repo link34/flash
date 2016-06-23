@@ -17,6 +17,7 @@ import com.solt.flash.entity.User;
 import com.solt.flash.image.FlashImageService;
 import com.solt.flash.interceptor.ErrorHandler;
 import com.solt.flash.model.BlogModel;
+import com.solt.flash.model.CommentModel;
 import com.solt.flash.producers.LoginUser;
 
 @Named
@@ -39,10 +40,13 @@ public class BlogBean implements Serializable {
     private User loginUser;
 
     @Inject
-    private BlogModel model;
+    private BlogModel blogModel;
     
     @Inject
-    private FlashImageService service;
+    private CommentModel commentModel;
+    
+    @Inject
+    private FlashImageService imageService;
 
     @PostConstruct
     public void init() {
@@ -50,7 +54,7 @@ public class BlogBean implements Serializable {
     				.getExternalContext()
     				.getRequestParameterMap().get("id");
     	if(null != id) {
-    		blog = model.findBlogById(Long.parseLong(id));
+    		blog = blogModel.findBlogById(Long.parseLong(id));
     		publish = blog.getStatus().equals(Status.Published);
     	}
     }
@@ -58,7 +62,7 @@ public class BlogBean implements Serializable {
     @ErrorHandler
     public String save() {
     	blog.setStatus(publish ? Status.Published: Status.Edit);
-    	model.saveBlog(blog);
+    	blogModel.saveBlog(blog);
     	return "/blog?faces-redirect=true&id=" + blog.getId();
     }
 
@@ -68,7 +72,7 @@ public class BlogBean implements Serializable {
     	comment.setComment(newComment);
     	comment.setUser(loginUser);
     	blog.addComment(comment);
-    	model.saveBlog(blog);
+    	blogModel.saveBlog(blog);
     	return "/blog?faces-redirect=true&id=" + blog.getId();
     }
 
@@ -86,7 +90,7 @@ public class BlogBean implements Serializable {
     		blog.getRate().put(loginUser.getLoginId(), value);
     	}
     	
-    	model.saveBlog(blog);
+    	blogModel.saveBlog(blog);
     }
 
     @ErrorHandler
@@ -97,7 +101,7 @@ public class BlogBean implements Serializable {
     			cmt.setComment(selectedComment.getComment());
     			cmt.getSecurity().setModification(new Date());
     			cmt.getSecurity().setModUser(loginUser.getLoginId());
-    	    	model.saveComment(cmt);
+    	    	commentModel.saveComment(cmt);
     		}
     	}
     	
@@ -107,12 +111,12 @@ public class BlogBean implements Serializable {
     @ErrorHandler
     public String deleteComment(Comment comment) {
     	blog.removeComment(comment);
-    	model.saveBlog(blog);
+    	blogModel.saveBlog(blog);
     	return "/blog?faces-redirect=true&id=" + blog.getId();
     }
     
     public void uploadImage() {
-    	blog.setImage(service.saveImage(loginUser.getLoginId(), file));
+    	blog.setImage(imageService.saveImage(loginUser.getLoginId(), file));
     }
 
 	public Blog getBlog() {

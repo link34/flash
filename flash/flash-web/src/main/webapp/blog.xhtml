@@ -71,12 +71,12 @@
 			</h:panelGroup>
 			
 			<!-- Comments -->
-			<h:panelGroup id="commentList" rendered="#{not empty blogBean.blog.commentList}">
+			<h:panelGroup id="commentList" rendered="#{not empty blogBean.blog.validCommentList}">
 				<h4 class="cyan-text">Comments</h4>
-				<ui:repeat var="cmt" value="#{blogBean.blog.commentList}">
-					<flash:commentItem cmt="#{cmt}" 
-						editActionListener="#{blogBean.editComment(cmt)}"
-						deleteAction="#{blogBean.deleteComment(cmt)}" />
+				<ui:repeat var="comment" value="#{blogBean.blog.validCommentList}">
+					<flash:commentItem cmt="#{comment}" 
+						editActionListener="#{blogBean.editComment(comment)}"
+						deleteAction="#{blogBean.deleteComment(comment)}" />
 				</ui:repeat>
 			</h:panelGroup>
 

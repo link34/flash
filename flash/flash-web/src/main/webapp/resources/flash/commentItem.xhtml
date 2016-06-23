@@ -22,7 +22,7 @@
 <composite:implementation>
 	<div class="card">
 		<div class="card-content">
-			<h:form rendered="#{loginUser.loginId eq cmt.user.loginId}">
+			<h:form rendered="#{loginUser.loginId eq cc.attrs.cmt.user.loginId}">
 				<h:commandLink styleClass="btn-floating right cyan" actionListener="#{cc.attrs.editActionListener}">
 					<i class="material-icons">edit</i>
 					<f:ajax execute="@this" render="editCommentForm" />

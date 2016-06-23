@@ -1,5 +1,7 @@
 package com.solt.flash.entity;
 
+import static com.solt.flash.entity.User.Status.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -97,6 +100,13 @@ public class Blog implements Serializable {
 	public List<Comment> getCommentList() {
 		return new ArrayList<>(comments);
 	}
+	
+	public List<Comment> getValidCommentList() {
+		return comments.stream()
+				.filter(a -> a.getUser().getStatus().equals(Valid))
+				.collect(Collectors.toList());
+	}
+	
 	
 	public void removeComment(Comment comment) {
 		this.comments.remove(comment);

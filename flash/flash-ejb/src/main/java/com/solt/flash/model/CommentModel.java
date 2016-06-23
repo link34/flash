@@ -14,4 +14,5 @@ public interface CommentModel extends Serializable {
 	List<Comment> searchComments(String keyword, String user, int start, int limit);
 	long searchCommentCount(String keyword, String user);
 	void deleteComment(Comment comment);
+	void saveComment(Comment comment);
 }
