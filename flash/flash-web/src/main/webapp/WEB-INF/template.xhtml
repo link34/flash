@@ -150,7 +150,8 @@
 					</ui:repeat>
 				</ul>
 				
-								<!-- Blogs  -->
+				<h:panelGroup id="summary">
+				<!-- Blogs  -->
 				<div class="card cyan accent-1">
 					<div class="card-content">
 						<i class="material-icons Fs36 cyan-text text-darken-4">description</i>
@@ -185,6 +186,7 @@
 						All Users
 					</div>
 				</div>
+				</h:panelGroup>
 				
 			</div>
 
@@ -194,6 +196,7 @@
 			</div>
 
 			<div class="col l3 hide-on-med-and-down">
+				<h:panelGroup id="topRanks">
 				<ul class="collection">
 					<ui:repeat var="tb" value="#{topRankingBlogs}">
 						<li class="collection-item avatar">
@@ -212,11 +215,12 @@
 							</span>
 							<span class="cyan-text">
 								<i class="material-icons">chat</i>
-								#{tb.comments.size()}
+								#{tb.validCommentList.size()}
 							</span>
 						</li>
 					</ui:repeat>
 				</ul>
+				</h:panelGroup>
 			</div>
 
 		</div>

@@ -28,7 +28,7 @@
 						<div class="action-bar">
 							<span class="MarRight10 valign-wrapper left">
 								<i class="material-icons Fs16 valign MarRight05 cyan-text text-darken-4">chat</i>
-								<h:outputText value="#{blog.comments.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
+								<h:outputText value="#{blog.validCommentList.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
 							</span>		
 							<span class="MarRight10 valign-wrapper left">
 								<h:commandLink styleClass="cyan-text text-darken-4 #{empty loginUser ? 'hide' : ''}" 
@@ -45,25 +45,21 @@
 							
 							<h:panelGroup styleClass="right">
 								<h:commandLink actionListener="#{userBlogsBean.publish(blog)}" 
-									styleClass="MarRight10 tooltipped #{blog.status eq 'Edit' ? '' : 'hide'}" 
-									p:data-position="down" p:data-delay="50" p:data-tooltip="Publish">
+									styleClass="MarRight10 #{blog.status eq 'Edit' ? '' : 'hide'}" >
 									<i class="material-icons cyan-text text-darken4 right">play_arrow</i>
 									<f:ajax execute="@this" render="@form" ></f:ajax>
 								</h:commandLink>
 								<h:commandLink actionListener="#{userBlogsBean.unPublish(blog)}"
-									styleClass="MarRight10 tooltipped #{blog.status eq 'Published' ? '' : 'hide'}" 
-									p:data-position="down" p:data-delay="50" p:data-tooltip="Un Publish" >
+									styleClass="MarRight10 #{blog.status eq 'Published' ? '' : 'hide'}" >
 									<i class="material-icons cyan-text text-darken4">stop</i>
 									<f:ajax execute="@this" render="@form" ></f:ajax>
 								</h:commandLink>
 								<h:commandLink actionListener="#{userBlogsBean.delete(blog)}" 
-									p:data-position="down" p:data-delay="50" p:data-tooltip="Delete"					
-									styleClass="MarRight10 tooltipped">
+									styleClass="MarRight10 ">
 									<i class="material-icons cyan-text text-darken4">delete</i>
 									<f:ajax execute="@this" render="@all"></f:ajax>
 								</h:commandLink>
-								<h:link styleClass="MarRight10 tooltipped"
-									p:data-position="down" p:data-delay="50" p:data-tooltip="Edit"					
+								<h:link styleClass="MarRight10 "
 									 outcome="/user/editBlog">
 									<i class="material-icons cyan-text text-darken4">edit</i>
 									<f:param name="id" value="#{blog.id}"></f:param>

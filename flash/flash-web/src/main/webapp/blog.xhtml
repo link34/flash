@@ -25,7 +25,7 @@
 				<div class="action-bar">
 					<span class="MarRight10 valign-wrapper right">
 						<i class="material-icons Fs16 valign MarRight05 cyan-text text-darken-4">chat</i>
-						<h:outputText value="#{blogBean.blog.comments.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
+						<h:outputText value="#{blogBean.blog.validCommentList.size()}" styleClass="Fs16 valign cyan-text text-darken-4" />
 					</span>		
 					<span class="MarRight10 valign-wrapper right">
 						<h:commandLink styleClass="cyan-text text-darken-4" actionListener="#{blogBean.vote('mode')}" rendered="#{not empty loginUser}">
