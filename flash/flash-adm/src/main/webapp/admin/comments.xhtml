@@ -31,34 +31,34 @@
 			<h:panelGroup rendered="#{empty commentBean.comments}" styleClass="center-align">
 				<h4 class="cyan-text text-darken-3">No Result</h4>
 			</h:panelGroup>
-
-			<h:form id="searchResult">
-				<ui:repeat var="cmt" value="#{commentBean.comments}">
-
-					<div class="card">
-						<div class="card-content row">
-							<h:form styleClass="col s2 m1 l1">
-								<h:commandLink styleClass="btn-floating left teal MarRight10" 
-									actionListener="#{commentBean.delete(cmt)}">
-									<i class="material-icons">delete</i>
-									<f:ajax execute="@this" render="@form"></f:ajax>
-								</h:commandLink>
-							</h:form>
-							<div class="col s10">
-								<p class="teal-text">
-									<h:outputText value="#{cmt.comment}" />
-								</p>
-								<h:outputText value="#{cmt.security.creation}" styleClass="grey-text Fs10" >
-									<f:converter binding="#{commonDateTimeConverter}" />
-								</h:outputText><br/>
-								<h:outputText value="#{cmt.user.name}" styleClass="left Fs10 grey-text" /><br/>
+			<h:panelGroup id="searchResult">
+				<h:form >
+					<ui:repeat var="cmt" value="#{commentBean.comments}">
+	
+						<div class="card">
+							<div class="card-content row">
+								<h:form styleClass="col s2 m1 l1">
+									<h:commandLink styleClass="btn-floating left teal MarRight10" 
+										actionListener="#{commentBean.delete(cmt)}">
+										<i class="material-icons">delete</i>
+										<f:ajax execute="@this" render="searchResult commentCountShow "></f:ajax>
+									</h:commandLink>
+								</h:form>
+								<div class="col s10">
+									<p class="teal-text">
+										<h:outputText value="#{cmt.comment}" />
+									</p>
+									<h:outputText value="#{cmt.security.creation}" styleClass="grey-text Fs10" >
+										<f:converter binding="#{commonDateTimeConverter}" />
+									</h:outputText><br/>
+									<h:outputText value="#{cmt.user.name}" styleClass="left Fs10 grey-text" /><br/>
+								</div>
 							</div>
 						</div>
-					</div>
-					
-				</ui:repeat>
-			</h:form>	
-			
+						
+					</ui:repeat>
+				</h:form>	
+			</h:panelGroup>
 			<h:form styleClass="hide" id="scForm"  rendered="#{not empty commentBean.comments}">
 				<h:commandLink actionListener="#{commentBean.search()}" value="Next">
 					<f:ajax execute="@this" render=":searchResult"></f:ajax>
