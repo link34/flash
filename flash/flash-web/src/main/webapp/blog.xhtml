@@ -87,7 +87,7 @@
 						<h5 class="cyan-text">Edit Comment</h5>
 			
 						<div class="input-field" id="commentData">
-							<h:inputTextarea value="#{blogBean.selectedComment.comment}" styleClass="materialize-textarea" id="comment"/>
+							<h:inputTextarea value="#{blogBean.selectedComment.comment}" styleClass="materialize-textarea" id="comment" required="true" requiredMessage="Any Comment Please !!"/>
 						</div>	
 						<h:commandLink styleClass="btn cyan" action="#{blogBean.saveComment()}" value="Save Comment" />
 			
@@ -105,7 +105,7 @@
 			<div class="card">
 				<div class="card-content">
 					<div class="input-field">
-						<h:inputTextarea value="#{blogBean.newComment}" styleClass="materialize-textarea" id="comment"/>
+						<h:inputTextarea value="#{blogBean.newComment}" styleClass="materialize-textarea" id="comment" required="true" requiredMessage="Any Comment Please !!"/>
 						<h:outputLabel value="Comment" for="comment" />
 					</div>	
 					<h:commandLink styleClass="btn cyan" action="#{blogBean.addComment()}" value="Add Comment" />

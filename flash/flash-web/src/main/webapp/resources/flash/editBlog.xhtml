@@ -34,7 +34,7 @@
 				</div>
 				<div class="col l8 m6 s12">
 					<div class="input-field">
-						<h:inputText value="#{cc.attrs.blog.title}" />
+						<h:inputText value="#{cc.attrs.blog.title}" required="true" requiredMessage="Please add title what you want to describe!!"/>
 						<h:outputLabel value="Memory" />
 					</div>
 				</div>
@@ -44,7 +44,7 @@
 					onclick="clickImage();" styleClass="tooltipped" 
 					p:data-position="bottom" p:data-delay="50" p:data-tooltip="Upload Photo" /><br/>
 			</div>				
-			<div style="display:none;">
+			<div style="display:none;" >
 				<h:inputFile value="#{cc.attrs.imageFile}" >
 					<f:ajax execute="@form" render="@all" listener="#{cc.attrs.uploadListener}"></f:ajax>
 				</h:inputFile>
@@ -56,8 +56,8 @@
 			</div>	
 			
 			<div>
-				<h:selectBooleanCheckbox id="publish" value="#{cc.attrs.publish}" />
-				<h:outputLabel value="Publish" for="publish" styleClass="MarRight20 MarBot10" />
+				<h:selectBooleanCheckbox id="publish" value="#{cc.attrs.publish}"  />
+				<h:outputLabel value="Publish" for="publish" styleClass="MarRight20 MarBot10"/>
 				<h:commandLink action="#{cc.attrs.saveAction}" value="#{cc.attrs.actionName}" styleClass="btn MarRight10 cyan" />
 			</div>			
 		</div>

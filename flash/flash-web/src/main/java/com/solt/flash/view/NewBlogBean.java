@@ -41,6 +41,7 @@ public class NewBlogBean implements Serializable {
     @PostConstruct
     private void init() {
     	blog = new Blog();
+    	publish = true;
     	blog.setUser(loginUser);
     }
 

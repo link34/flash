@@ -23,6 +23,7 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.EAGER;
@@ -43,7 +44,10 @@ public class Blog implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
+    @NotNull(message="You Must Enter Title")
     private String title;
+    
+    @NotNull(message="Please upload photo-memo.")
     private String image;
 
     @Lob
