@@ -46,22 +46,22 @@
 	
 	<context-param>
 		<param-name>flash.topblog.size</param-name>
-		<param-value>20</param-value>
+		<param-value>10</param-value>
 	</context-param>
 
 	<context-param>
 		<param-name>flash.bloglist.size</param-name>
-		<param-value>2</param-value>
+		<param-value>5</param-value>
 	</context-param>
 	
 	<context-param>
 		<param-name>flash.commentlist.size</param-name>
-		<param-value>10</param-value>
+		<param-value>20</param-value>
 	</context-param>
 	
 	<context-param>
 		<param-name>flash.userlist.size</param-name>
-		<param-value>2</param-value>
+		<param-value>10</param-value>
 	</context-param>
 	
 	<context-param>

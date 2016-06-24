@@ -50,7 +50,7 @@ public class Blog implements Serializable {
     @NotNull(message="You Must Enter Title")
     private String title;
     
-    @NotNull(message="Please upload photo-memo.")
+    @NotNull(message="Please upload photo for your memory.")
     private String image;
 
     @Lob
