@@ -44,10 +44,11 @@
 	<ul id="dropdown2" class="dropdown-content conf-menu" >
 		<h:panelGroup rendered="#{empty loginUser}">
 			<li>
-				<a class="modal-trigger" href="#singUpModal">Sign Up</a>
+				<h:link value="Sign Up" outcome="signUp" />
+				
 			</li>
 			<li>
-				<a class="modal-trigger" href="#singInModal">Sign In</a>
+				<h:link value="Sign In" outcome="signIn" />
 			</li>
 		</h:panelGroup>
 		

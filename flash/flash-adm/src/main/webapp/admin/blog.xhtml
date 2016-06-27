@@ -41,7 +41,7 @@
 				</div>
 			</div>
 								
-			<h:panelGroup id="comments">
+			<h:panelGroup id="blogcomments">
 				<ui:repeat var="cmt" value="#{blogDetailsBean.blog.commentList}">
 
 					<div class="card">
@@ -50,7 +50,7 @@
 								<h:commandLink styleClass="btn-floating left teal MarRight10" 
 									actionListener="#{commentBean.delete(cmt)}">
 									<i class="material-icons">delete</i>
-									<f:ajax execute="@this" render="@form"></f:ajax>
+									<f:ajax execute="@this" render="blogcomments commentCountShow"></f:ajax>
 								</h:commandLink>
 							</h:form>
 							<div class="col s10">
