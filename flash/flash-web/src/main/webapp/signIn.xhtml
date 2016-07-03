@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="title">
+			Home
+		</ui:define>
+		
+		<ui:define name="content">
+			<h:form>
+				<div class="card" >
+					<div class="container ">
+						<div>
+							<h4>Sign In</h4>
+							
+							<div class="input-field">
+								<h:inputText value="#{loginBean.loginId}" 
+									required="true" requiredMessage="Please enter Login ID." />
+								<h:outputLabel value="Login ID" />
+							</div>
+			
+							<div class="input-field">
+								<h:inputSecret value="#{loginBean.password}"
+									required="true" requiredMessage="Please enter password." />
+								<h:outputLabel value="Password" />
+							</div>
+							
+						</div>
+						
+						<div>
+							<h:commandButton action="#{loginBean.login()}" value="SIGN IN" styleClass="btn MarRight20 MarBot20"/>
+							<h:link value="Close" outcome="home" class="btn MarBot20" />						
+						</div>
+					</div>
+				</div>
+			</h:form>
+			
+		</ui:define>
+	</ui:composition>
+</html>
